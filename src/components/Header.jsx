@@ -32,7 +32,7 @@ const Header = React.memo(() => {
   const handleDownloadPDF = () => {
     const link = document.createElement("a");
     link.href = "src/assets/amppere_brochure.pdf"; // Replace with actual PDF path
-    link.download = "amppere_brochure.pdf";
+    link.download = "AmppereCable_ProductCatalog.pdf";
     link.click();
   };
 
