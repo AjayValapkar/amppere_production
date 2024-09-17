@@ -12,7 +12,6 @@ export default function EnquiryPage() {
   });
 
   const handleChange = (e) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -20,6 +19,7 @@ export default function EnquiryPage() {
   };
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
 
     // Validate form fields
