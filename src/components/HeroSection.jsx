@@ -69,7 +69,7 @@ const HeroSection = () => {
               />
               {/* Overlay Text */}
               <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-sm md:text-lg p-8">{descriptions[index]}</p>
+                <p className="text-white text-center text-sm md:text-lg p-8">{descriptions[index]}</p>
               </div>
             </div>
           );

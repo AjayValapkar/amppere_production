@@ -32,7 +32,7 @@ const ProductSection = () => {
                         </div>
                         <div data-aos="fade-left" className="relative w-[100px] h-[130px] mt-2.5 md:mt-0 md:w-[225px] md:mb-4 md:h-[280px] flex justify-center items-center rounded-bl-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
                             <img src={imagePath.productComp_2} alt="Product 2" className="transition-all duration-300 ease-in-out group-hover:opacity-40 h-[130px] md:h-[280px]" />
-                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold">Fire Alaram Cable</span>
+                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold">Fire Alarm Cable</span>
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
