@@ -12,6 +12,7 @@ export default function EnquiryPage() {
   });
 
   const handleChange = (e) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -20,8 +21,16 @@ export default function EnquiryPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate form fields
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill out all required fields');
+      return;
+    }
+
     try {
-      await axios.post('/api/sendEmail', formData, {
+      // Send request to the API
+      await axios.post('/api/sendMail', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
