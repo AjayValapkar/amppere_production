@@ -19,9 +19,7 @@ export default function EnquiryPage() {
   };
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-
     // Validate form fields
     if (!formData.name || !formData.email || !formData.message) {
       alert('Please fill out all required fields');
