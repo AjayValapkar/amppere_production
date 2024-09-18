@@ -115,7 +115,7 @@ const KeyNumbers = () => {
                             />
                         )}
                         <div className="h-1 w-20 bg-red-600 my-2 self-start"></div>
-                        <div className="text-left">Total Cable Length Manufactured (Meter)</div>
+                        <div className="text-left">Total Cable Length Manufactured (Mtr)</div>
                     </div>
                 </div>
             </div>

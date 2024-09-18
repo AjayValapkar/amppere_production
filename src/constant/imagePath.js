@@ -66,6 +66,9 @@ import comany11 from '../assets/Mahindra_aerospace.webp'
 import comany12 from '../assets/bse.jpg'
 import comany13 from '../assets/nxp.avif'
 
+import fb from '../assets/fb.png'
+import linkedin from '../assets/in.webp'
+
 import video2 from '../assets/Armouring.mp4'
 import video3 from '../assets/Insulation.mp4'
 import video4 from '../assets/Laying.mp4'
@@ -139,7 +142,9 @@ const imagePath = {
   video2,
   video3,
   video4,
-  video5
+  video5,
+  linkedin,
+  fb
 };
 
 export default imagePath;

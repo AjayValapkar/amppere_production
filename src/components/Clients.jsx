@@ -23,7 +23,7 @@ const Clients = () => {
                 <div className="section-header text-center mb-10">
                     {/* <h1 className="text-3xl md:text-5xl font-bold text-black mb-4 flex flex-col md:flex-row md:items-center"> */}
 
-                        <span className="text-3xl md:text-4xl font-bold text-[#E91F1F] font-inter"> <span className=" text-black md:mr-2 font-inter">OUR</span>CLIENTS</span>
+                        <span className="text-3xl md:text-4xl font-bold text-[#E91F1F] font-inter"> <span className=" text-black md:mr-4 font-inter ">OUR</span> CLIENTS</span>
                     {/* </h1> */}
                     <p className="text-gray-500 text-xl md:text-xl mt-2 max-w-xl mx-auto">Meet our happy clients</p>
                 </div>

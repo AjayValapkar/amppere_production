@@ -350,7 +350,7 @@ export const productData = [
             {
                 id: 1,
                 title: 'Description',
-                description: 'The Screened cable is a wire for transmission of electricity which is protected/covered by an earthed wire mesh. Because of such shielding, it is protected from interference of other electromagnetic signals. We, MANGOCAB CABLES, supply the best quality of Screened Cables, which, because of their unbeatable features, are long-lasting and thus economical. Screened cable or shielded cable is useful in security systems as they are protected from power frequency and radio frequency interference.'
+                description: 'The Screened cable is a wire for transmission of electricity which is protected/covered by an earthed wire mesh. Because of such shielding, it is protected from interference of other electromagnetic signals. We, AMPPERE CABLES, supply the best quality of Screened Cables, which, because of their unbeatable features, are long-lasting and thus economical. Screened cable or shielded cable is useful in security systems as they are protected from power frequency and radio frequency interference.'
             }
         ]
     },
@@ -363,7 +363,7 @@ export const productData = [
             {
                 id: 1,
                 title: 'Description',
-                description: 'Signal Cables play a vital role in the telecommunication industry. MANGOCAB CABLES offers top-quality Signal Cables that are highly sought after in the market. For television, optical cables are particularly well-suited. Signal cables are divided into three main categories: Ethernet Cables, Optical Cables, and Submarine Communication Cables.'
+                description: 'Signal Cables play a vital role in the telecommunication industry. AMPPERE CABLES offers top-quality Signal Cables that are highly sought after in the market. For television, optical cables are particularly well-suited. Signal cables are divided into three main categories: Ethernet Cables, Optical Cables, and Submarine Communication Cables.'
             }
         ]
     }

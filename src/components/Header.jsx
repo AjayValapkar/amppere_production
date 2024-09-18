@@ -31,8 +31,8 @@ const Header = React.memo(() => {
 
   const handleDownloadPDF = () => {
     const link = document.createElement("a");
-    link.href = "src/assets/amppere_brochure.pdf"; // Replace with actual PDF path
-    link.download = "AmppereCable_ProductCatalog.pdf";
+    link.href = "/amppere_brochure.pdf"; // Replace with actual PDF path
+    link.download = "AmppereCable_Brochure.pdf";
     link.click();
   };
 
@@ -79,7 +79,7 @@ const Header = React.memo(() => {
 
                 <li className="relative font-inter">
                   <button
-                    onMouseOver={toggleDropdown1}
+                    onClick={toggleDropdown1}
                     className="md:text-2xl lg:text-2xl font-bold hover:text-red-600 focus:outline-none"
                   >
                     Company
@@ -96,7 +96,7 @@ const Header = React.memo(() => {
 
                 <li className="relative font-inter">
                   <button
-                    onMouseOver={toggleDropdown}
+                    onClick={toggleDropdown}
                     className="md:text-2xl lg:text-2xl font-bold hover:text-red-600 focus:outline-none"
                   >
                     Products

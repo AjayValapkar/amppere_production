@@ -71,20 +71,20 @@ const Footer = React.memo(() => {
 
                 {/* Social Media Links */}
                 <div className="font-inter flex flex-wrap justify-center mt-8 space-x-4" data-aos="fade-up">
+
                     <a href="https://www.facebook.com/profile.php?id=100093014817492&mibextid=LQQJ4d" target="_blank"
-              rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
-                        <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22 12.076c0-5.521-4.479-10-10-10s-10 4.479-10 10c0 5.234 4.084 9.569 9.328 9.951v-7.031h-2.81v-2.92h2.81v-2.156c0-2.772 1.628-4.277 4.005-4.277 1.156 0 2.352.188 2.352.188v2.592h-1.326c-1.308 0-1.717.811-1.717 1.64v1.963h2.922l-.467 2.92h-2.455v7.029c5.243-.382 9.328-4.716 9.328-9.951z" />
-                        </svg>
+                        rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
+                        <img src={imagePath.fb} className="w-6 h-6 mr-2" alt="" srcset="" />
                         Facebook
                     </a>
-                    <a href=" https://www.linkedin.com/in/ampperecable?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
-              rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
-                        <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.447 20.448h-3.686v-5.722c0-1.362-.024-3.112-1.892-3.112-1.892 0-2.183 1.476-2.183 3.001v5.833h-3.686v-11.44h3.535v1.559h.048c.493-.935 1.701-1.922 3.506-1.922 3.749 0 4.439 2.466 4.439 5.676v6.127zm-11.631-11.746h-3.631v11.44h3.631v-11.44zm-1.814-2.034c-1.168 0-2.119.954-2.119 2.119s.951 2.119 2.119 2.119 2.119-.953 2.119-2.119-.951-2.119-2.119-2.119zm12.225 14.958c0 .717-.577 1.293-1.293 1.293h-1.907c-.717 0-1.293-.577-1.293-1.293v-7.044c0-.717.577-1.293 1.293-1.293h1.907c.717 0 1.293.577 1.293 1.293v7.044z" />
-                        </svg>
+                    <a href="https://www.linkedin.com/in/ampperecable?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
+                        rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
+                       <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcset="" />
                         LinkedIn
                     </a>
+
+
+
                 </div>
 
             </div>

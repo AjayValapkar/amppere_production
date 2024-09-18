@@ -3,7 +3,7 @@ import imagePath from '../constant/imagePath';
 
 export default function AboutUs() {
   // State to track the selected video
-  const [currentVideo, setCurrentVideo] = useState(imagePath.frame); // Default video
+  const [currentVideo, setCurrentVideo] = useState(imagePath.video3); // Default video
   const scrollRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -12,20 +12,22 @@ export default function AboutUs() {
   // Array of video data
   const videos = [
     {
-      name: 'Video 1',
-      videoPath: imagePath.frame, // Replace with actual video path
+     
+      name: 'Insulation',
+      videoPath: imagePath.video3,// Replace with actual video path
+    },
+    {
+      
+      name: 'Laying',
+      videoPath: imagePath.video4, // Replace with actual video path
+    },
+    {
+      name: 'Shielding',
+      videoPath: imagePath.frame,  // Replace with actual video path
     },
     {
       name: 'Armouring',
       videoPath: imagePath.video2, // Replace with actual video path
-    },
-    {
-      name: 'Insulation',
-      videoPath: imagePath.video3, // Replace with actual video path
-    },
-    {
-      name: 'Laying',
-      videoPath: imagePath.video4, // Replace with actual video path
     },
     {
       name: 'Outer Sheating',

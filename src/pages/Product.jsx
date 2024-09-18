@@ -35,7 +35,7 @@ const Product = () => {
         <img
           src={detailsImg}
           alt='Product Details'
-          className='w-1/2 h-auto absolute top-16 left-2 md:left-8 border-2 border-black'
+          className='w-1/2 h-auto md:w-[600px] md:h-[300px] absolute top-16 left-2 md:left-8 border-2 border-black'
         />
       </div>
 

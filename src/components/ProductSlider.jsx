@@ -75,20 +75,20 @@ const ProductSlider = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center py-5'>
+    <div className='flex flex-col justify-center items-center pb-10 mt-8'>
       <p className='text-[24px] text-center font-bold text-[#880000] mb-5'>
         OUR PRODUCTS
       </p>
-      <div className='w-full max-w-[1100px] mx-auto'>
+      <div className='w-full max-w-[1100px] mx-auto pb-10'>
         <Slider {...settings}>
           {data.map((item, index) => (
             item ? (
-              <div className='flex flex-col items-center w-full max-w-[250px]' key={index}>
+              <div className='flex flex-col items-center w-full max-w-[250px] pb-2' key={index}>
                 <div className='bg-gray-300 w-full h-[230px] overflow-hidden flex items-center justify-center'>
                   <img
                     src={item.headerImg}
                     alt={item.productName}
-                    className='w-full h-[180px] object-cover'
+                    className='w-full h-full object-cover'
                   />
                 </div>
                 <Link to={`/product/${item.productName.replace(/\s+/g, ' ')}`}>
