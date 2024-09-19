@@ -10,6 +10,9 @@ export default function EnquiryPage() {
     phone: '',
     message: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -20,11 +23,16 @@ export default function EnquiryPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+
     // Validate form fields
     if (!formData.name || !formData.email || !formData.message) {
-      alert('Please fill out all required fields');
+      setError('Please fill out all required fields');
       return;
     }
+
+    setLoading(true);
 
     try {
       // Send request to the API
@@ -35,7 +43,7 @@ export default function EnquiryPage() {
       });
 
       // Notify the user of success
-      alert('Message sent successfully');
+      setSuccess('Message sent successfully!');
 
       // Reset form fields
       setFormData({
@@ -46,22 +54,17 @@ export default function EnquiryPage() {
       });
     } catch (error) {
       // Notify the user of failure
-      alert('Error sending message');
+      setError('Error sending message. Please try again later.');
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
-
 
   return (
     <div>
       <div className="relative flex flex-col items-center bg-black">
-        {/* <img
-          src={imagePath}
-          alt="Enquiry page"
-          className=" object-cover"
-        /> */}
-        <div className=" bg-gradient-to-t from-black to-gray-800 top-0 w-full h-[500px] md:h-[650px] flex flex-col items-center justify-center text-center">
-
+        <div className="bg-gradient-to-t from-black to-gray-800 top-0 w-full h-[500px] md:h-[650px] flex flex-col items-center justify-center text-center">
           <div className='mt-0'>
             <p className='px-10 md:px-0 text-lg md:text-3xl text-[#FF0000] font-bold text-left md:mb-10'>
               Send an enquiry:
@@ -69,9 +72,7 @@ export default function EnquiryPage() {
             <div>
               <form onSubmit={handleSubmit} className="p-10 md:p-0 md:w-[800px] mx-auto text-sm md:text-lg">
                 <div className="mb-4 md:mb-8 flex flex-row items-center justify-between">
-                  <label className="block text-white text-md font-bold mb-2" htmlFor="name">
-                    Name :
-                  </label>
+                  <label className="block text-white text-md font-bold mb-2" htmlFor="name">Name :</label>
                   <input
                     type="text"
                     name="name"
@@ -83,9 +84,7 @@ export default function EnquiryPage() {
                 </div>
 
                 <div className="mb-4 md:mb-8 flex flex-row items-center justify-between">
-                  <label className="block text-white text-md font-bold mb-2" htmlFor="email">
-                    Email :
-                  </label>
+                  <label className="block text-white text-md font-bold mb-2" htmlFor="email">Email :</label>
                   <input
                     type="email"
                     name="email"
@@ -97,41 +96,43 @@ export default function EnquiryPage() {
                 </div>
 
                 <div className="mb-4 md:mb-8 flex flex-row items-center justify-between">
-                  <label className="block text-white text-md font-bold mb-2 " htmlFor="phone">
-                    Phone :
-                  </label>
+                  <label className="block text-white text-md font-bold mb-2" htmlFor="phone">Phone :</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-[200px] h-[30px] md:w-[600px] md:h-[40px] px-3 py-2 px-1 text-white border rounded bg-transparent"
+                    className="w-[200px] h-[30px] md:w-[600px] md:h-[40px] px-3 py-2 text-white border rounded bg-transparent"
                     placeholder="Your Phone Number"
                   />
                 </div>
 
                 <div className="mb-4 md:mb-8 flex flex-row items-center justify-between">
-                  <label className="block text-white text-md font-bold mb-2 mr-2 md:mr-0" htmlFor="message">
-                    How can I help you?
-                  </label>
+                  <label className="block text-white text-md font-bold mb-2" htmlFor="message">How can I help you?</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-[200px] h-[30px] md:w-[600px] md:h-[40px] px-3 py-2 text-white border rounded bg-transparent"
+                    className="w-[200px] h-[80px] md:w-[600px] md:h-[100px] px-3 py-2 text-white border rounded bg-transparent"
                     placeholder="Your Message"
                   />
                 </div>
+
+                {error && <p className="text-red-500">{error}</p>}
+                {success && <p className="text-green-500">{success}</p>}
+                
                 <div className='mt-10 md:mt-20'>
                   <button
                     type="submit"
-                    className='w-[100] h-[30px] px-2 md:px-0 md:w-[200px] md:h-[40px] text-base md:text-xl mr-4 bg-white text-[#AE1B1B] rounded-full hover:bg-[#AE1B1B] hover:text-white transition duration-300 mb-4'>
-                    SEND ENQUIRY
+                    className={`w-[100px] h-[30px] px-2 md:px-0 md:w-[200px] md:h-[40px] text-base md:text-xl mr-4 bg-white text-[#AE1B1B] rounded-full hover:bg-[#AE1B1B] hover:text-white transition duration-300 mb-4`}
+                    disabled={loading}
+                  >
+                    {loading ? 'Sending...' : 'SEND ENQUIRY'}
                   </button>
                   <button
                     type="button"
                     onClick={() => setFormData({ name: '', email: '', phone: '', message: '' })}
-                    className='w-[100] h-[30px] px-6 md:px-0 md:w-[200px] md:h-[40px] text-base md:text-xl mr-4 bg-[#A5A5A5] text-white rounded-full hover:bg-white hover:text-[#A5A5A5] transition duration-300'>
+                    className='w-[100px] h-[30px] px-6 md:px-0 md:w-[200px] md:h-[40px] text-base md:text-xl mr-4 bg-[#A5A5A5] text-white rounded-full hover:bg-white hover:text-[#A5A5A5] transition duration-300'>
                     CLEAR ALL
                   </button>
                 </div>
@@ -141,22 +142,15 @@ export default function EnquiryPage() {
         </div>
         <div className='w-full md:h-[450px] flex justify-center items-center bg-black'>
           <div className='flex flex-col md:w-[800px] p-14 md:p-0 '>
-            <p className='md:px-0 text-lg md:text-3xl text-[#FF0000] font-bold text-left md:mb-10'>
-              Locate us:
-            </p>
+            <p className='md:px-0 text-lg md:text-3xl text-[#FF0000] font-bold text-left md:mb-10'>Locate us:</p>
             <div className='flex mt-4 md:mt-0'>
-              {/* <img
-                src={imagePath.locationIcon}
-                alt="Location Icon"
-                className='h-[30px] md:h-[30px] mr-2 md:mr-4'
-              /> */}
               <p className='text-white md:text-xl'>
                 Shed no. 28/A, 1&2, Survey no. 47, Hi-Tech Industrial Area, Alyali, Tal-Dist.Palghar, Palghar 401404, Maharashtra, India
               </p>
             </div>
-
-            <a href="https://maps.app.goo.gl/DP5cXrrRg5Awmg2a8?g_st=iw" target="_blank"
-              rel="noopener noreferrer"> <img src={imagePath.map} alt="Map" className='mt-10' /></a>
+            <a href="https://maps.app.goo.gl/DP5cXrrRg5Awmg2a8?g_st=iw" target="_blank" rel="noopener noreferrer">
+              <img src={imagePath.map} alt="Map" className='mt-10' />
+            </a>
           </div>
         </div>
       </div>
