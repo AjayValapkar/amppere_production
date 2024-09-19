@@ -10,10 +10,12 @@ export default async function handler(req, res) {
         service: 'Gmail',
         auth: {
           type: 'OAuth2',
-          user: process.env.GMAIL_USER, // Email of the sender
-          clientId: process.env.GMAIL_CLIENT_ID, // OAuth2 Client ID
-          clientSecret: process.env.GMAIL_CLIENT_SECRET, // OAuth2 Client Secret
-          refreshToken: process.env.GMAIL_REFRESH_TOKEN, // OAuth2 Refresh Token
+          user: process.env.EMAIL_USER, // Email of the sender
+          clientId: process.env.EMAIL_CLIENT_ID, // OAuth2 Client ID
+          clientSecret: process.env.EMAIL_CLIENT_SECRET, // OAuth2 Client Secret
+          accessToken :process.env.EMAIL_ACCESS_TOKEN,
+          refreshToken: process.env.EMAIL_REFRESH_TOKEN, // OAuth2 Refresh Token
+
         },
       });
 
