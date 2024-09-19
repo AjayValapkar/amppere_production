@@ -1,21 +1,35 @@
 import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
+
+const oauth2Client = new google.auth.OAuth2(
+  process.env.EMAIL_CLIENT_ID, // OAuth2 Client ID
+  process.env.EMAIL_CLIENT_SECRET, // OAuth2 Client Secret
+  process.env.EMAIL_REDIRECT_URI // OAuth2 Redirect URI (optional)
+);
+
+// Set the credentials using the refresh token
+oauth2Client.setCredentials({
+  refresh_token: process.env.EMAIL_REFRESH_TOKEN, // OAuth2 Refresh Token
+});
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { name, email, phone, message } = req.body;
 
-      // Nodemailer Transporter Setup using environment variables
+      // Get a new access token
+      const accessToken = await oauth2Client.getAccessToken();
+
+      // Nodemailer Transporter Setup using OAuth2
       const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
           type: 'OAuth2',
-          user: process.env.EMAIL_USER, // Email of the sender
+          user: process.env.EMAIL_USER, // Sender email
           clientId: process.env.EMAIL_CLIENT_ID, // OAuth2 Client ID
           clientSecret: process.env.EMAIL_CLIENT_SECRET, // OAuth2 Client Secret
-          accessToken :process.env.EMAIL_ACCESS_TOKEN,
           refreshToken: process.env.EMAIL_REFRESH_TOKEN, // OAuth2 Refresh Token
-
+          accessToken: accessToken.token, // OAuth2 Access Token
         },
       });
 
@@ -38,6 +52,7 @@ export default async function handler(req, res) {
         `,
       };
 
+      // Send the email
       await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Message sent successfully' });
     } catch (error) {
@@ -45,6 +60,6 @@ export default async function handler(req, res) {
       res.status(500).json({ message: 'Error sending message', error: error.message });
     }
   } else {
-    res.status(405).json({ message: 'Method Not allowed' });
+    res.status(405).json({ message: 'Method Not Allowed' });
   }
 }
