@@ -2,7 +2,7 @@ import SibApiV3Sdk from '@sendinblue/client';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { name, email, message } = req.body;
+    const { name, email, phone, message } = req.body;
 
     // Initialize Brevo (Sendinblue) API client
     const client = new SibApiV3Sdk.TransactionalEmailsApi();
@@ -10,20 +10,47 @@ export default async function handler(req, res) {
 
     // Set up email details
     const sendSmtpEmail = {
-      to: [{ email: 'valapkarajay2002@gmail.com' }], // Replace with your receiving email address
-      sender: { name: 'Amppere Cable', email: 'valapkarajay96@gmail.com' }, // Use a verified email in Brevo
-      subject: 'New Contact Form Submission',
+      to: [{ email: 'valapkarajay2002@gmail.com' }], // Receiving email address
+      sender: { name: `${name}`, email: 'valapkarajay96@gmail.com' }, // Verified Brevo sender email
+      subject: 'New Enquiry from Website',
       htmlContent: `
         <html>
-          <body>
-            <h2>New Contact Form Submission</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Message:</strong> ${message}</p>
+          <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+            <table style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+              <!-- Header -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 20px;">
+                  <h2 style="color: #333333; font-size: 24px; font-weight: bold; margin: 0;">
+                    New Enquiry from Website
+                  </h2>
+                </td>
+              </tr>
+    
+              <!-- Details Section -->
+              <tr>
+                <td style="padding: 20px;">
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong> ${name}</p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Email:</strong> ${email}</p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Phone:</strong> ${phone}</p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Message:</strong></p>
+                  <p style="font-size: 16px; color: #555555; margin: 0; padding-left: 15px;">${message}</p>
+                </td>
+              </tr>
+    
+              <!-- Footer -->
+              <tr>
+                <td style="padding-top: 20px; text-align: center;">
+                  <p style="font-size: 12px; color: #888888;">
+                    Thank you for reaching out. We will get back to you shortly.
+                  </p>
+                </td>
+              </tr>
+            </table>
           </body>
         </html>
       `,
     };
+
 
     try {
       // Send the email
