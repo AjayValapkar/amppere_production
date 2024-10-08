@@ -83,7 +83,7 @@ const Footer = React.memo(() => {
                         LinkedIn
                     </a>
                 </div>
-                <div className="mt-10 -mb-10">
+                <div className="mt-10 sm:-mb-10">
                     <p className="text-center text-white">&copy; 2024  Developed & Maintained By <a href="https://haloxion.com/" target="_blank" rel="noopener noreferrer"  className="text-red-600">Haloxion</a> </p>
                 </div>
 
