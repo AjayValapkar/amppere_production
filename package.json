@@ -12,6 +12,7 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@heroicons/react": "^2.1.5",
+    "@sendinblue/client": "^3.3.1",
     "@splidejs/react-splide": "^0.7.12",
     "aos": "^2.3.4",
     "axios": "^1.7.7",
