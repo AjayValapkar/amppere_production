@@ -15,7 +15,7 @@ const Footer = React.memo(() => {
             <div className="absolute inset-0 z-[-1] bg-black bg-opacity-60"></div>
 
             <div className="container mx-auto px-4 relative z-10">
-                <img src={imagePath.logo} alt="Ampere Cable Logo" className="h-28 sm:h-20 md:h-26 lg:h-40" />
+                <img src={imagePath.logo} alt="Amppere Cable Logo" className="h-28 sm:h-20 md:h-26 lg:h-40" />
                 <p className="text-white text-sm mb-4 ">Where Quality Meets Reliability</p>
 
                 <div className="flex flex-wrap justify-between my-0 md:my-6">
@@ -82,9 +82,9 @@ const Footer = React.memo(() => {
                        <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcset="" />
                         LinkedIn
                     </a>
-
-
-
+                </div>
+                <div className="mt-10 -mb-10">
+                    <p className="text-center text-white">&copy; 2024  Developed & Maintained By <a href="https://haloxion.com/" target="_blank" rel="noopener noreferrer"  className="text-red-600">Haloxion</a> </p>
                 </div>
 
             </div>
