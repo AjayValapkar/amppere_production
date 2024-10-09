@@ -16,32 +16,26 @@ export default async function handler(req, res) {
       htmlContent: `
         <html>
           <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
-            <table style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <table style="max-width: 600px; margin: 20px auto; padding: 20px 0px 10px 0px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
               <!-- Header -->
-              <tr>
-                <td style="text-align: center; padding-bottom: 20px;">
-                  <h2 style="color: #333333; font-size: 24px; font-weight: bold; margin: 0;">
-                    New Enquiry from Website
-                  </h2>
-                </td>
-              </tr>
+             
     
               <!-- Details Section -->
               <tr>
                 <td style="padding: 20px;">
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong> ${name}</p>
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Email:</strong> ${email}</p>
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Phone:</strong> ${phone}</p>
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Message:</strong></p>
-                  <p style="font-size: 16px; color: #555555; margin: 0; padding-left: 15px;">${message}</p>
-                </td>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>You got message from ${name}.</p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Contact Details</p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Email Id   : ${email} </p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Mobile N0. : ${phone} </p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Enquiry About : ${message}</p>
+                  </td>
               </tr>
     
               <!-- Footer -->
               <tr>
                 <td style="padding-top: 20px; text-align: center;">
                   <p style="font-size: 12px; color: #888888;">
-                    Thank you for reaching out. We will get back to you shortly.
+                    This mail comes from website enquiry form.
                   </p>
                 </td>
               </tr>
