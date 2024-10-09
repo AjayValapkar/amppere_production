@@ -10,24 +10,22 @@ export default async function handler(req, res) {
 
     // Set up email details
     const sendSmtpEmail = {
-      to: [{ email: 'valapkarajay2002@gmail.com' }], // Receiving email address
+      to: [{ email: 'infoampperecable@gmail.com' }], // Receiving email address
       sender: { name: `${name}`, email: 'valapkarajay96@gmail.com' }, // Verified Brevo sender email
       subject: 'New Enquiry from Website',
       htmlContent: `
         <html>
           <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
-            <table style="max-width: 600px; margin: 20px auto; padding: 20px 0px 10px 0px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <table style="max-width: 600px; margin: 8px auto; padding: 10px 0px 10px 0px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
               <!-- Header -->
-             
-    
               <!-- Details Section -->
               <tr>
                 <td style="padding: 20px;">
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>You got message from ${name}.</p>
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Contact Details</p>
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Email Id   : ${email} </p>
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Mobile N0. : ${phone} </p>
-                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;"><strong>Name:</strong>Enquiry About : ${message}</p>
+                  <p style="font-size: 18px; color: #555555; margin: 0 0 8px;">You got message from ${name}.</p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;">>Contact Details</p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;">Email Id   : ${email} </p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;">Mobile N0. : ${phone} </p>
+                  <p style="font-size: 16px; color: #555555; margin: 0 0 8px;">Enquiry About : ${message}</p>
                   </td>
               </tr>
     

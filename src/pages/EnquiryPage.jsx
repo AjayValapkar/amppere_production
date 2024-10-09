@@ -66,7 +66,7 @@ export default function EnquiryPage() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full md:w-[600px] h-[30px] md:h-[40px] px-3 py-2 text-white border rounded bg-transparent"
+              className="w-full md:w-[600px] h-[30px] md:h-[40px] px-3 py-4 text-white border rounded bg-transparent"
               placeholder="Your Name"
             />
             <input
@@ -74,7 +74,7 @@ export default function EnquiryPage() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full md:w-[600px] h-[30px] md:h-[40px] px-3 py-2 text-white border rounded bg-transparent"
+              className="w-full md:w-[600px] h-[30px] md:h-[40px] px-3 py-4 text-white border rounded bg-transparent"
               placeholder="Your Email"
             />
             <input
@@ -82,14 +82,14 @@ export default function EnquiryPage() {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full md:w-[600px] h-[30px] md:h-[40px] px-3 py-2 text-white border rounded bg-transparent"
+              className="w-full md:w-[600px] h-[30px] md:h-[40px] px-3 py-4 text-white border rounded bg-transparent"
               placeholder="Your Phone Number"
             />
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full md:w-[600px] h-[80px] md:h-[100px] px-3 py-2 text-white border rounded bg-transparent"
+              className="w-full md:w-[600px] h-[80px] md:h-[100px] px-3 py-4 text-white border rounded bg-transparent"
               placeholder="Your Message"
             />
 
