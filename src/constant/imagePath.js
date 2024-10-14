@@ -73,6 +73,7 @@ import video2 from '../assets/Armouring.mp4'
 import video3 from '../assets/Insulation.mp4'
 import video4 from '../assets/Laying.mp4'
 import video5 from '../assets/Outer Sheating.mp4'
+import haloxion from '../assets/haloxiontextlogo.png'
 
 
 
@@ -144,7 +145,8 @@ const imagePath = {
   video4,
   video5,
   linkedin,
-  fb
+  fb,
+  haloxion
 };
 
 export default imagePath;

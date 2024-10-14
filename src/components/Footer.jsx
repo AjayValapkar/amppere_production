@@ -79,13 +79,26 @@ const Footer = React.memo(() => {
                     </a>
                     <a href="https://www.linkedin.com/in/ampperecable?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
-                       <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcset="" />
+                        <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcset="" />
                         LinkedIn
                     </a>
                 </div>
-                <div className="mt-10 sm:-mb-10">
-                    <p className="text-center text-white">&copy; 2024  Developed & Maintained By <a href="https://haloxion.com/" target="_blank" rel="noopener noreferrer"  className="text-red-600">Haloxion</a> </p>
-                </div>
+               <p className="text-center text-white flex items-center justify-center mt-8">
+                    &copy; 2024 Developed & Maintained By
+                    <a
+                        href="https://haloxion.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-red-600 flex items-center ml-2"
+                    >
+                        <img
+                            src={imagePath.haloxion}
+                            className="w-30 h-6 md:h-8"
+                            alt="Haloxion Logo"
+                        />
+                    </a>
+                </p>
+
 
             </div>
         </footer>
