@@ -15,6 +15,7 @@ const Clients = () => {
         imagePath.comany12,
         imagePath.comany13,
         imagePath.review1,
+        imagePath.review3,
     ];
 
     return (

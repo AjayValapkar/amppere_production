@@ -11,6 +11,7 @@ const clients = [
     { name: "PNB", logo: imagePath.comany4 },
     { name: "Dell", logo: imagePath.comany5 },
     { name: "MindSpace", logo: imagePath.comany6 },
+    { name  : "Kiam", logo: imagePath.review3}
 ];
 
 const ClientsComponent = React.memo(() => {
