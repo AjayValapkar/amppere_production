@@ -106,7 +106,7 @@ const KeyNumbers = () => {
                         {inView3 && (
                             <CountUp
                                 start={0}
-                                end={3000}
+                                end={3500}
                                 duration={3}
                                 suffix="K+"
                                 className="text-5xl font-bold mb-2"
