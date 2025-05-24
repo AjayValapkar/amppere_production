@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from '/src/assets/logo.png';
+import logo from '/src/assets/amplogo.png';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
@@ -54,10 +54,10 @@ const Header = React.memo(() => {
               </button>
             </div>
             <div className="relative w-full text-center">
-              <div className="hidden sm:block mb-0 animate-fade-in-down">
+              <div className="hidden sm:block mb-2 animate-fade-in-down">
                 <img src={logo} alt="Logo" className="h-16 sm:h-20 md:h-20 lg:h-36 mx-auto" />
               </div>
-              <p className="hidden md:block text-white text-sm mb-4">Where Quality Meets Reliability</p>
+              {/* <p className="hidden md:block text-white text-sm mb-4">Where Quality Meets Reliability</p> */}
 
               {/* Button positioned at the top-right for large screens */}
               <button

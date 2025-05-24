@@ -16,7 +16,7 @@ const Footer = React.memo(() => {
 
             <div className="container mx-auto px-4 relative z-10">
                 <img src={imagePath.logo} alt="Amppere Cable Logo" className="h-28 sm:h-20 md:h-26 lg:h-40" />
-                <p className="text-white text-sm mb-4 ">Where Quality Meets Reliability</p>
+                {/* <p className="text-white text-sm mb-4 ">Where Quality Meets Reliability</p> */}
 
                 <div className="flex flex-wrap justify-between my-0 md:my-6">
                     {/* Left Column */}
@@ -81,6 +81,11 @@ const Footer = React.memo(() => {
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
                         <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcset="" />
                         LinkedIn
+                    </a>
+                    <a href="https://www.instagram.com/ampperecable?igsh=dzc4eXRzZzJvM3dy" target="_blank"
+                        rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
+                        <img src={imagePath.insta} className="w-6 h-6 mr-2" alt="" srcset="" />
+                        Instagram
                     </a>
                 </div>
                <p className="text-center text-white flex items-center justify-center mt-8">
