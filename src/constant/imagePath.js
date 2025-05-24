@@ -58,7 +58,7 @@ import key1 from '../assets/key1.png'
 import key2 from '../assets/key2.png'
 import key3 from '../assets/key3.png'
 
-import logo from '../assets/logo.png'
+import logo from '../assets/amplogo.png'
 
 import comany9 from '../assets/nexus.png'
 import comany10 from '../assets/Capgemini-Logo.png'
@@ -68,6 +68,7 @@ import comany13 from '../assets/nxp.avif'
 
 import fb from '../assets/fb.png'
 import linkedin from '../assets/in.webp'
+import insta from '../assets/insta.png'
 
 import video2 from '../assets/Armouring.mp4'
 import video3 from '../assets/Insulation.mp4'
@@ -146,7 +147,8 @@ const imagePath = {
   video5,
   linkedin,
   fb,
-  haloxion
+  haloxion,
+  insta
 };
 
 export default imagePath;
