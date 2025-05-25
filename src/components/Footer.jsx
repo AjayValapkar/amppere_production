@@ -88,7 +88,7 @@ const Footer = React.memo(() => {
                     </a>
                 </div>
                <p className="text-center text-white flex items-center justify-center mt-8">
-                    &copy; 2024 Developed & Maintained By
+                    &copy; 2025 Developed & Maintained By
                     <a
                         href="https://haloxion.com/"
                         target="_blank"
