@@ -69,7 +69,6 @@ import comany13 from '../assets/nxp.avif'
 
 import fb from '../assets/fb.png'
 import linkedin from '../assets/in.webp'
-import insta from '../assets/insta.png'
 
 import video2 from '../assets/Armouring.mp4'
 import video3 from '../assets/Insulation.mp4'
