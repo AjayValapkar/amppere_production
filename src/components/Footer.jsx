@@ -69,7 +69,6 @@ const Footer = React.memo(() => {
 
                 <div className="w-full border-t-8 border-red-600 my-5"></div>
 
-                {/* Social Media Links */}
                 <div className="font-inter flex flex-wrap justify-center mt-8 space-x-4" data-aos="fade-up">
 
                     <a href="https://www.facebook.com/profile.php?id=100093014817492&mibextid=LQQJ4d" target="_blank"
@@ -87,11 +86,9 @@ const Footer = React.memo(() => {
                         <img src={imagePath.insta} className="w-6 h-6 mr-2" alt="" srcset="" />
                         Instagram
                     </a>
-
-                    
                 </div>
                <p className="text-center text-white flex items-center justify-center mt-8">
-                    &copy; 2024 Developed & Maintained By
+                    &copy; 2025 Developed & Maintained By
                     <a
                         href="https://haloxion.com/"
                         target="_blank"
