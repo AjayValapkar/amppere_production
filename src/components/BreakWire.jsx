@@ -6,7 +6,7 @@ const CableComponent = () => {
             <div className="p-4">
                 <img src="/src/assets/wire.svg" alt="Broken Cable" className="w-full h-auto" />
             </div>
-            <div className="w-full bg-black h-16"></div> {/* Black color section */}
+            <div className="w-full bg-black h-16"></div>
         </div>
     );
 };
