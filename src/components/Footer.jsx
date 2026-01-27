@@ -73,17 +73,17 @@ const Footer = React.memo(() => {
 
                     <a href="https://www.facebook.com/profile.php?id=100093014817492&mibextid=LQQJ4d" target="_blank"
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
-                        <img src={imagePath.fb} className="w-6 h-6 mr-2" alt="" srcset="" />
+                        <img src={imagePath.fb} className="w-6 h-6 mr-2" alt="" srcSet="" />
                         Facebook
                     </a>
                     <a href="https://www.linkedin.com/in/ampperecable?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
-                        <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcset="" />
+                        <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcSet="" />
                         LinkedIn
                     </a>
                     <a href="https://www.instagram.com/ampperecable?igsh=dzc4eXRzZzJvM3dy" target="_blank"
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
-                        <img src={imagePath.insta} className="w-6 h-6 mr-2" alt="" srcset="" />
+                        <img src={imagePath.insta} className="w-6 h-6 mr-2" alt="" srcSet="" />
                         Instagram
                     </a>
                 </div>

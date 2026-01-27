@@ -1,7 +1,7 @@
 // src/components/Loader.jsx
 
 import React from 'react';
-import logo from '../assets/logo.png'; // Adjust the path as needed
+import logo from '../assets/amp-logo.png'; // Adjust the path as needed
 
 const Loader = () => {
   return (

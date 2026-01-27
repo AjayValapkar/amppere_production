@@ -59,7 +59,7 @@ import key2 from '../assets/key2.png'
 import key3 from '../assets/key3.png'
 import insta from '../assets/insta.png'
 
-import logo from '../assets/amplogo.png'
+import logo from '../assets/amp-logo.png'
 
 import comany9 from '../assets/nexus.png'
 import comany10 from '../assets/Capgemini-Logo.png'
