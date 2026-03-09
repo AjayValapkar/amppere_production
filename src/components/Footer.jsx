@@ -71,20 +71,25 @@ const Footer = React.memo(() => {
 
                 <div className="font-inter flex flex-wrap justify-center mt-8 space-x-4" data-aos="fade-up">
 
-                    <a href="https://www.facebook.com/profile.php?id=100093014817492&mibextid=LQQJ4d" target="_blank"
+                    <a href="https://www.facebook.com/people/Amppere-Cable/61566408188370/?mibextid=wwXIfr&rdid=XLGD1PzpJoTNGQ5s&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Q9t9PgS4S%2F%3Fmibextid%3DwwXIfr" target="_blank"
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
                         <img src={imagePath.fb} className="w-6 h-6 mr-2" alt="" srcSet="" />
                         Facebook
                     </a>
-                    <a href="https://www.linkedin.com/in/ampperecable?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
+                    <a href="https://www.linkedin.com/company/amppere-cable" target="_blank"
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
                         <img src={imagePath.linkedin} className="w-6 h-6 mr-2" alt="" srcSet="" />
                         LinkedIn
                     </a>
-                    <a href="https://www.instagram.com/ampperecable?igsh=dzc4eXRzZzJvM3dy" target="_blank"
+                    <a href="https://www.instagram.com/ampperecable?igsh=MWYyazE1ZDhwYTd0NQ%3D%3D&utm_source=qr" target="_blank"
                         rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
                         <img src={imagePath.insta} className="w-6 h-6 mr-2" alt="" srcSet="" />
                         Instagram
+                    </a>
+                      <a href="https://www.youtube.com/channel/UCUpTOAVXEGQzM34Eke8kNRA" target="_blank"
+                        rel="noopener noreferrer" className="flex items-center text-2xl hover:text-red-500">
+                        <img src={imagePath.youtube} className="w-8 h-6 mr-2" alt="" srcSet="" />
+                        YouTube
                     </a>
                 </div>
                <p className="text-center text-white flex items-center justify-center mt-8">
