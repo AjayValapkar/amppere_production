@@ -1,108 +1,335 @@
-import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
+import React, { useState, useEffect, useRef } from 'react';
 import { productData } from '../constant/productData';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-// Custom Next Arrow
-const NextArrow = ({ onClick }) => (
-  <button className="slick-arrow slick-next" onClick={onClick}>
-    &gt;
-  </button>
-);
+const EXCLUDE = 'Fire Alarm Cables';
 
-const PrevArrow = ({ onClick }) => (
-  <button className="slick-arrow slick-prev text-red-600" onClick={onClick}>
-    &lt;
-  </button>
-);
-
-const ProductSlider = () => {
-  const [data, setData] = useState([]);
-  const props = 'Fire Alarm Cables';
-  const filteredProducts = productData.filter((item) => item.productName !== props);
-
-  const selectRandomFourProducts = () => {
-    const selectedProducts = [];
-    const usedIndices = new Set();
-
-    while (selectedProducts.length < 4 && usedIndices.size < filteredProducts.length) {
-      const index = Math.floor(Math.random() * filteredProducts.length);
-      if (!usedIndices.has(index)) {
-        usedIndices.add(index);
-        selectedProducts.push(filteredProducts[index]);
-      }
+/* ── Arrow buttons ── */
+const Arrow = ({ dir, onClick, disabled }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    aria-label={dir === 'prev' ? 'Previous' : 'Next'}
+    className={`
+      flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2
+      transition-all duration-200 focus:outline-none flex-shrink-0
+      ${disabled
+        ? 'border-gray-600 text-gray-600 cursor-not-allowed opacity-40'
+        : 'border-white text-white hover:bg-white hover:text-[#6b0f0f] cursor-pointer'}
+    `}
+  >
+    {dir === 'prev'
+      ? <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M15 19l-7-7 7-7" /></svg>
+      : <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M9 5l7 7-7 7" /></svg>
     }
+  </button>
+);
 
-    setData(selectedProducts);
-  };
-
-  useEffect(() => {
-    selectRandomFourProducts();
-  }, []);
-
-  // Slider settings
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    dotsClass: "slick-dots custom-dots",
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+/* ── Single product card — matches image exactly ── */
+const ProductCard = ({ item }) => {
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <div className='flex flex-col justify-center items-center pb-10 mt-8'>
-      <p className='text-[24px] text-center font-bold text-[#880000] mb-5'>
-        OUR PRODUCTS
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        borderRadius: '16px',
+        padding: '20px 20px 24px 20px',
+        display: 'flex',
+        flexDirection: 'column',
+        cursor: 'pointer',
+        transition: 'box-shadow 0.4s ease',
+        minHeight: '420px',
+        userSelect: 'none',
+      }}
+    >
+      {/* ── Image tile — blue-gradient bg with rounded corners ── */}
+      <div
+        style={{
+          borderRadius: '1px',
+          overflow: 'hidden',
+          background: 'linear-gradient(160deg, #b0c8e8 0%, #2a4a8a 55%, #1a2f6a 100%)',
+          flex: '0 0 auto',
+          height: '260px',
+          position: 'relative',
+        }}
+      >
+        <img
+          src={item.headerImg}
+          alt={item.productName}
+          draggable={false}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center bottom',
+            display: 'block',
+            transformOrigin: 'center bottom',
+            transform: hovered ? 'scale(1.06)' : 'scale(1)',
+            transition: 'transform 0.5s cubic-bezier(.22,1,.36,1)',
+          }}
+        />
+      </div>
+
+      {/* ── Description text ── */}
+      <p
+        style={{
+          color: 'rgba(255,255,255,0.90)',
+          fontSize: '0.95rem',
+          lineHeight: '1.6',
+          margin: '20px 0 0 0',
+          flexGrow: 1,
+          fontFamily: 'sans-serif',
+          fontWeight: 400,
+        }}
+      >
+        {item.description
+          ? item.description.length > 100
+            ? item.description.slice(0, 100) + '…'
+            : item.description
+          : `${item.productName} engineered for optimal performance, durability, and safety in demanding environments.`
+        }
       </p>
-      <div className='w-full max-w-[1100px] mx-auto pb-10'>
-        <Slider {...settings}>
-          {data.map((item, index) => (
-            item ? (
-              <div className='flex flex-col items-center w-full max-w-[250px] pb-2' key={index}>
-                <div className='bg-gray-300 w-full h-[230px] overflow-hidden flex items-center justify-center'>
-                  <img
-                    src={item.headerImg}
-                    alt={item.productName}
-                    className='w-full h-full object-cover'
-                  />
-                </div>
-                <Link to={`/product/${item.productName.replace(/\s+/g, ' ')}`}>
-                  <button className='flex items-center justify-between w-full mt-4 p-2 border border-white rounded hover:text-white hover:border-black hover:rounded-lg transition-all duration-300'>
-                    <p className='text-lg text-black font-semibold'>{item.productName}</p>
-                    <p className='text-lg text-black font-semibold ml-2'>&gt;</p>
-                  </button>
-                </Link>
-              </div>
-            ) : null
-          ))}
-        </Slider>
+
+      {/* ── Divider ── */}
+      <div
+        style={{
+          height: '1px',
+          background: 'rgba(255,255,255,0.20)',
+          margin: '20px 0 16px',
+          flexShrink: 0,
+        }}
+      />
+
+      {/* ── "View More →" footer ── */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexShrink: 0,
+        }}
+      >
+        <span
+          style={{
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: '1rem',
+            letterSpacing: '0.01em',
+            transform: hovered ? 'translateX(10px)' : 'translateX(0)',
+            transition: 'transform 0.35s cubic-bezier(.22,1,.36,1), color 0.25s',
+          }}
+        >
+          View More
+        </span>
+
+        {/* Long arrow — exactly like the image */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            opacity: hovered ? 1 : 0.75,
+            transform: hovered ? 'translateX(-10px)' : 'translateX(0)',
+            transition: 'opacity 0.3s ease, transform 0.35s cubic-bezier(.22,1,.36,1)',
+          }}
+        >
+          {/* long line */}
+          <div style={{ width: '36px', height: '2px', background: '#fff', borderRadius: '2px' }} />
+          {/* arrowhead */}
+          <svg viewBox="0 0 12 12" width="10" height="10" fill="none"
+               stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 6h8M6 2l4 4-4 4" />
+          </svg>
+        </div>
       </div>
     </div>
+  );
+};
+
+/* ════════════════════════════════════════════
+   MAIN SLIDER
+════════════════════════════════════════════ */
+const ProductSlider = () => {
+  const [products, setProducts]   = useState([]);
+  const [index, setIndex]         = useState(0);
+  const [perView, setPerView]     = useState(4);
+  const [dragging, setDragging]   = useState(false);
+  const [dragStart, setDragStart] = useState(null);
+
+  /* pick random products */
+  useEffect(() => {
+    const pool   = productData.filter(p => p.productName !== EXCLUDE);
+    const picked = [];
+    const used   = new Set();
+    while (picked.length < Math.min(8, pool.length) && used.size < pool.length) {
+      const i = Math.floor(Math.random() * pool.length);
+      if (!used.has(i)) { used.add(i); picked.push(pool[i]); }
+    }
+    setProducts(picked);
+  }, []);
+
+  /* responsive perView */
+  useEffect(() => {
+    const calc = () => {
+      const w = window.innerWidth;
+      if (w >= 1024)     setPerView(4);
+      else if (w >= 768) setPerView(3);
+      else if (w >= 540) setPerView(2);
+      else               setPerView(1);
+    };
+    calc();
+    window.addEventListener('resize', calc);
+    return () => window.removeEventListener('resize', calc);
+  }, []);
+
+  const maxIndex = Math.max(0, products.length - perView);
+  const canPrev  = index > 0;
+  const canNext  = index < maxIndex;
+  const prev     = () => setIndex(i => Math.max(0, i - 1));
+  const next     = () => setIndex(i => Math.min(maxIndex, i + 1));
+
+  /* drag / swipe */
+  const onDragStart = (x) => { setDragging(true); setDragStart(x); };
+  const onDragEnd   = (x) => {
+    if (!dragging || dragStart === null) return;
+    const diff = dragStart - x;
+    if (diff > 40)       next();
+    else if (diff < -40) prev();
+    setDragging(false); setDragStart(null);
+  };
+
+  const cardPct = 100 / perView;
+
+  return (
+    /* ── full-width dark maroon background ── */
+    <section
+      style={{
+        width: '100%',
+        background: '#4d0f08',
+        padding: 'clamp(2.5rem,5vw,4.5rem) clamp(1rem,4vw,3.5rem)',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* ── HEADER ── */}
+      <div
+        style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          marginBottom: 'clamp(1.5rem,3vw,2.5rem)',
+          gap: '1rem',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div>
+        
+          <h2 style={{ color: '#fff', fontWeight: 800, margin: 0,
+                       fontSize: 'clamp(1.5rem,3.5vw,2.4rem)', lineHeight: 1.1 }}>
+            OUR <span style={{ color: '#ff6b6b' }}>PRODUCTS</span>
+          </h2>
+        </div>
+
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <Arrow dir="prev" onClick={prev} disabled={!canPrev} />
+          <Arrow dir="next" onClick={next} disabled={!canNext} />
+        </div>
+      </div>
+
+      {/* ── TRACK ── */}
+      <div
+        style={{ maxWidth: '1280px', margin: '0 auto', overflow: 'hidden' }}
+        onMouseDown={e => onDragStart(e.clientX)}
+        onMouseUp={e => onDragEnd(e.clientX)}
+        onMouseLeave={() => { setDragging(false); setDragStart(null); }}
+        onTouchStart={e => onDragStart(e.touches[0].clientX)}
+        onTouchEnd={e => onDragEnd(e.changedTouches[0].clientX)}
+      >
+        <div
+          style={{
+            display: 'flex',
+            transform: `translateX(-${index * cardPct}%)`,
+            transition: dragging ? 'none' : 'transform 0.5s cubic-bezier(.22,1,.36,1)',
+            willChange: 'transform',
+          }}
+        >
+          {products.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                flexShrink: 0,
+                width: `${cardPct}%`,
+                padding: '0 8px',
+              }}
+            >
+              <Link
+                to={`/product/${item.productName.replace(/\s+/g, ' ')}`}
+                style={{ textDecoration: 'none' }}
+                tabIndex={-1}
+              >
+                <ProductCard item={item} />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── DOTS ── */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '28px' }}>
+        {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            aria-label={`Slide ${i + 1}`}
+            style={{
+              height: '7px',
+              width: i === index ? '28px' : '7px',
+              borderRadius: '100px',
+              background: i === index ? '#fff' : 'rgba(255,255,255,0.30)',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              transition: 'width 0.3s ease, background 0.3s ease',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ── VIEW ALL ── */}
+      {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+        <Link to="/products" style={{ textDecoration: 'none' }}>
+          <button
+            style={{
+              border: '2px solid rgba(255,255,255,0.6)',
+              background: 'transparent',
+              color: '#fff',
+              borderRadius: '8px',
+              padding: '10px 36px',
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              letterSpacing: '0.04em',
+              cursor: 'pointer',
+              transition: 'background 0.25s, border-color 0.25s, color 0.25s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = '#fff';
+              e.currentTarget.style.color = '#6b0f0f';
+              e.currentTarget.style.borderColor = '#fff';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)';
+            }}
+          >
+            View All Products
+          </button>
+        </Link>
+      </div> */}
+    </section>
   );
 };
 

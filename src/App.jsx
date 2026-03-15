@@ -39,7 +39,7 @@ function App() {
                 <Wire />
                 <CopperConductors />
                 <CardSlider />
-                <KeyNumbers />
+                {/* <KeyNumbers /> */}
               </>
             }
           />

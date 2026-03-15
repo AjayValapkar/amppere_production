@@ -70,33 +70,33 @@ const Goals = () => {
   }, [goals.id]);
 
   return (
-    <div className="relative bg-white p-6 md:p-20">
-      <div data-aos="fade-up" className="flex flex-row justify-center items-center mb-20">
-        <p className="text-[#880000] font-bold text-3xl md:text-4xl mr-2 font-inter">OUR</p>
-        <p className="text-black font-bold text-3xl md:text-4xl font-inter">GOALS</p>
+    <div className="relative md:bg-[#4d0f08] p-6 md:px-20 md:py-10">
+      <div data-aos="fade-up" className="flex flex-row justify-center items-center mb-16">
+        <p className="text-[#880000] md:text-white font-bold text-3xl md:text-4xl mr-2 font-inter">OUR</p>
+        <p className="md:text-white font-bold text-3xl md:text-4xl font-inter">GOALS</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl my-4 relative">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl mt-10 relative">
         {goals.map(goal => (
            <div
            id={`goal-${goal.id}`}
            key={goal.id}
            className={`${
              inView ? 'animate-borderRun' : ''
-           } ${goal.borders} -my-4`}
+           } ${goal.borders} -my-4 `}
          >
             <div data-aos={goal.anima}>
               <div
-                className="relative pb-4 mb-6 bg-white rounded-lg shadow-lg text-center transition-transform duration-500 transform hover:scale-105 hover:shadow-xl"
+                className="relative height-[40px] pb-4 mb-6 bg-white rounded-md shadow-lg text-center transition-transform duration-500 transform hover:scale-105 hover:shadow-xl"
                 style={{ boxShadow: '0 0px 2px rgba(0, 0, 0, 0.1), 0 18px 8px rgba(0, 0, 0, 0.15)' }}
               >
-                <div className="bg-[#AE1B19] text-white rounded-t-lg py-2 px-4 mb-4">
+              <div className="bg-[#AE1B19] text-white rounded-t-md py-2 px-4 mb-4">
                   <h3 className="text-xl font-bold">Goal {goal.id}</h3>
                 </div>
 
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mb-0">
                   <img src={goal.icon} alt={goal.title} className="font-inter w-32 h-32 object-cover" />
                 </div>
-                <div className="bg-white text-black rounded-t-lg py-2 px-4 mb-4">
+                <div className="bg-white text-black rounded-t-lg py-2 px-4 -mb-4">
                   <h3 className="text-lg font-bold font-inter">{goal.title}</h3>
                 </div>
                 <div className="p-3">
