@@ -2,7 +2,17 @@ import React, { useState, useEffect } from "react";
 import logo from '/src/assets/amplogo.png';
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { CATEGORIES } from '../constant/categories';
+
+/* ── SCROLL TO TOP ON ROUTE CHANGE ─────────────────────────── */
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+  return null;
+};
 
 /* ── SVG ICONS ─────────────────────────────────────────────── */
 const PhoneIcon = () => (
@@ -46,23 +56,25 @@ const ChevronDown = ({ open }) => (
   </svg>
 );
 
-/* ── PRODUCT LINKS ─────────────────────────────────────────── */
-const PRODUCT_LINKS = [
-  ["Instrumentation Cables", "/product/Instrumentation Cables"],
-  ["Fire Alarm Cables",      "/product/Fire Alarm Cables"],
-  ["Flexible Cables",        "/product/Flexible Cables"],
-  ["Fire Survival Cables",   "/product/Fire Survival Cables"],
-  ["Co Axial Cable",         "/product/Co Axial Cable"],
-  ["Power LT Cable",         "/product/Power LT Cable"],
-  ["Screened Cable",         "/product/Screened Cable"],
-  ["Signal Cable",           "/product/Signal Cables"],
-];
+const ChevronRight = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 flex-shrink-0"
+    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+  </svg>
+);
 
 /* ════════════════════════════════════════════════════════════ */
 const Header = React.memo(() => {
   const [mobileOpen,  setMobileOpen]  = useState(false);
   const [prodOpen,    setProdOpen]    = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
+  const [hoveredCat,  setHoveredCat]  = useState(null); // ✅ FIX: removed <string | null> TypeScript generic
+
+  // Close mobile menu on route change
+  const location = useLocation();
+  useEffect(() => {
+    closeMobile();
+  }, [location.pathname]);
 
   /* lock body scroll when drawer is open */
   useEffect(() => {
@@ -72,7 +84,12 @@ const Header = React.memo(() => {
 
   useEffect(() => { AOS.init({ duration: 1200 }); }, []);
 
-  const closeMobile = () => { setMobileOpen(false); setProdOpen(false); setCompanyOpen(false); };
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setProdOpen(false);
+    setCompanyOpen(false);
+    setHoveredCat(null);
+  };
 
   const handleDownloadPDF = () => {
     const a = document.createElement("a");
@@ -83,33 +100,26 @@ const Header = React.memo(() => {
 
   return (
     <>
+      <ScrollToTop />
+
       {/* ══════════════════════════════════════════
           TOP CONTACT BAR
-          • Mobile  (<640 px) : icons-only on left, social pill on right
-          • Tablet+ (≥640 px) : full text on left, social pill on right
       ══════════════════════════════════════════ */}
-      <div className="w-full bg-black text-white p-0 ">
-        <div className="max-w-screen-xl mx-auto flex items-center justify-between height-[40px]
-                        pl-6">
+      <div className="w-full bg-black text-white p-0">
+        <div className="max-w-screen-xl mx-auto flex items-center justify-between height-[40px] pl-6">
 
-          {/* ── LEFT: contact info ── */}
+          {/* LEFT: contact info */}
           <div className="flex items-center gap-3 sm:gap-6 md:gap-10 min-w-0">
-
-            {/* Phone */}
             <a href="tel:+919370946510"
                className="flex items-center gap-1.5 sm:gap-2 hover:text-red-400 transition-colors min-w-0">
               <PhoneIcon />
-              {/* Full number on sm+, just icon on xs */}
               <span className="hidden sm:inline text-xs sm:text-sm font-medium whitespace-nowrap">
                 +91 9370946510
               </span>
             </a>
-
-            {/* Email */}
             <a href="mailto:infoampperecable@gmail.com"
                className="flex items-center gap-1.5 sm:gap-2 hover:text-red-400 transition-colors min-w-0">
               <MailIcon />
-              {/* Full address on md+, truncated on sm, icon-only on xs */}
               <span className="hidden sm:inline md:hidden text-xs font-medium whitespace-nowrap">
                 infoampperecable@gmail.com
               </span>
@@ -119,10 +129,9 @@ const Header = React.memo(() => {
             </a>
           </div>
 
-          {/* ── RIGHT: social icons in white pill ── */}
+          {/* RIGHT: social icons */}
           <div className="flex-shrink-0 bg-white rounded-tl-[90px] rounded-bl-[10px]
-                          px-6 py-2
-                          flex items-center gap-6">
+                          px-6 py-2 flex items-center gap-6">
             <a href="#" aria-label="Facebook"
                className="text-gray-800 hover:text-red-600 transition-colors flex items-center">
               <FacebookIcon />
@@ -142,11 +151,9 @@ const Header = React.memo(() => {
       {/* ══════════════════════════════════════════
           MAIN NAVBAR
       ══════════════════════════════════════════ */}
-      <header className="w-full bg-[#1a1a3e] text-white shadow-lg sticky top-0 z-40">
+      <header className="w-full bg-[#1D102F] text-white shadow-lg sticky top-0 z-40">
         <nav className="max-w-screen-xl mx-auto flex items-center justify-between
-                        px-3 py-2
-                        sm:px-6 sm:py-3
-                        md:px-8">
+                        px-3 py-2 sm:px-6 sm:py-3 md:px-8">
 
           {/* Logo */}
           <Link to="/" className="flex-shrink-0" onClick={closeMobile}>
@@ -154,7 +161,7 @@ const Header = React.memo(() => {
                  className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto" />
           </Link>
 
-          {/* ── DESKTOP NAV LINKS (hidden on mobile) ── */}
+          {/* ── DESKTOP NAV LINKS ── */}
           <ul className="hidden md:flex items-center gap-6 lg:gap-10">
 
             <li>
@@ -168,8 +175,8 @@ const Header = React.memo(() => {
             {/* Company */}
             <li className="relative">
               <button
-                onClick={() => { setCompanyOpen(p => !p); setProdOpen(false); }}
-                onBlur={() => setTimeout(() => setCompanyOpen(false), 160)}
+                onClick={() => { setCompanyOpen(p => !p); setProdOpen(false); setHoveredCat(null); }}
+                onBlur={() => setTimeout(() => setCompanyOpen(false), 300)}
                 className="flex items-center gap-1 text-sm lg:text-base font-semibold
                            tracking-wide hover:text-red-500 transition-colors focus:outline-none">
                 About <ChevronDown open={companyOpen} />
@@ -191,26 +198,54 @@ const Header = React.memo(() => {
               </div>
             </li>
 
-            {/* Products */}
+            {/* Products — two categories with flyout */}
             <li className="relative">
               <button
                 onClick={() => { setProdOpen(p => !p); setCompanyOpen(false); }}
-                onBlur={() => setTimeout(() => setProdOpen(false), 160)}
+                onBlur={() => setTimeout(() => { setProdOpen(false); setHoveredCat(null); }, 300)}
                 className="flex items-center gap-1 text-sm lg:text-base font-semibold
                            tracking-wide hover:text-red-500 transition-colors focus:outline-none">
                 Product <ChevronDown open={prodOpen} />
               </button>
-              <div className={`absolute left-0 top-full mt-2 w-60 bg-white text-gray-900
-                              rounded-lg shadow-xl overflow-hidden
+
+              {/* First-level: two categories */}
+              <div className={`absolute left-0 top-full mt-2 w-52 bg-white text-gray-900
+                              rounded-lg shadow-xl overflow-visible
                               transition-all duration-200 origin-top z-50
                               ${prodOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}>
-                {PRODUCT_LINKS.map(([label, path], i) => (
-                  <Link key={label} to={path} onClick={() => setProdOpen(false)}
-                    className={`block px-4 py-3 text-sm font-medium
-                                hover:bg-red-600 hover:text-white transition-colors
-                                ${i < PRODUCT_LINKS.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                    {label}
-                  </Link>
+                {CATEGORIES.map((cat, i) => (
+                  <div
+                    key={cat.name}
+                    className="relative"
+                    onMouseEnter={() => setHoveredCat(cat.name)}
+                    onMouseLeave={() => setHoveredCat(null)}
+                  >
+                    <div className={`flex items-center justify-between px-4 py-3 text-sm font-medium
+                                     cursor-pointer select-none
+                                     hover:bg-red-600 hover:text-white transition-colors
+                                     ${i < CATEGORIES.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                      {cat.name}
+                      <ChevronRight />
+                    </div>
+
+                    {/* Second-level flyout */}
+                    <div className={`absolute left-full top-0 w-56 bg-white text-gray-900
+                                     rounded-lg shadow-xl overflow-hidden
+                                     transition-all duration-200 origin-top-left z-50
+                                     ${hoveredCat === cat.name ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}>
+                      {cat.products.map(([label, path], j) => (
+                        <Link
+                          key={label}
+                          to={path}
+                          onClick={() => { setProdOpen(false); setHoveredCat(null); }}
+                          className={`block px-4 py-3 text-sm font-medium
+                                      hover:bg-red-600 hover:text-white transition-colors
+                                      ${j < cat.products.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                          {label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </li>
@@ -265,9 +300,8 @@ const Header = React.memo(() => {
       {/* ══════════════════════════════════════════
           MOBILE DRAWER OVERLAY
       ══════════════════════════════════════════ */}
-      {/* Backdrop */}
       <div
-        onClick={closeMobile}
+        onClick={(e) => { e.stopPropagation(); closeMobile(); }}
         className={`fixed inset-0 bg-black/60 z-50 md:hidden
                     transition-opacity duration-300
                     ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
@@ -275,10 +309,10 @@ const Header = React.memo(() => {
 
       {/* Drawer panel */}
       <aside
-        className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] bg-[#12123a] z-50
+        className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] bg-[#12123a] z-[60]
                     md:hidden shadow-2xl flex flex-col
                     transition-transform duration-300 ease-in-out
-                    ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                    ${mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'}`}
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 flex-shrink-0">
@@ -344,15 +378,33 @@ const Header = React.memo(() => {
                 <ChevronDown open={prodOpen} />
               </button>
               <div className={`overflow-hidden transition-all duration-300
-                              ${prodOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <ul className="pl-4 pb-2 space-y-0.5">
-                  {PRODUCT_LINKS.map(([label, path]) => (
-                    <li key={label}>
-                      <Link to={path} onClick={closeMobile}
-                        className="block py-2 px-2 text-gray-300 text-sm hover:text-red-400
-                                   rounded-md hover:bg-white/5 transition-colors">
-                        {label}
-                      </Link>
+                              ${prodOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                <ul className="pl-3 pb-2 space-y-0.5">
+                  {CATEGORIES.map((cat) => (
+                    <li key={cat.name}>
+                      <button
+                        onClick={() => setHoveredCat(p => p === cat.name ? null : cat.name)}
+                        className="w-full flex items-center justify-between py-2.5 px-2
+                                   text-gray-200 text-sm font-semibold
+                                   hover:text-red-400 transition-colors focus:outline-none
+                                   rounded-md hover:bg-white/5">
+                        {cat.name}
+                        <ChevronDown open={hoveredCat === cat.name} />
+                      </button>
+                      <div className={`overflow-hidden transition-all duration-300
+                                      ${hoveredCat === cat.name ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <ul className="pl-4 pb-1 space-y-0.5">
+                          {cat.products.map(([label, path]) => (
+                            <li key={label}>
+                              <Link to={path} onClick={closeMobile}
+                                className="block py-2 px-2 text-gray-400 text-sm
+                                           hover:text-red-400 rounded-md hover:bg-white/5 transition-colors">
+                                {label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -400,7 +452,6 @@ const Header = React.memo(() => {
              className="flex items-center gap-2 text-gray-400 text-xs hover:text-white transition-colors">
             <MailIcon /> infoampperecable@gmail.com
           </a>
-          {/* Social in drawer too */}
           <div className="flex items-center gap-3 pt-1">
             <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-white transition-colors"><FacebookIcon /></a>
             <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors"><InstagramIcon /></a>

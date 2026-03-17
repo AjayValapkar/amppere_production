@@ -3,28 +3,32 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import imagePath from '../constant/imagePath';
 import { productData } from '../constant/productData';
 import ProductSlider from '../components/ProductSlider';
+import { getCategoryForProduct } from '../constant/categories';
 
 /* ── Breadcrumb bar ── */
-const Breadcrumb = ({ productName }) => (
-  <div className="w-full bg-[#cc1111] px-4 sm:px-8 py-2.5">
-    <div className="max-w-screen-xl mx-auto flex items-center gap-1.5 flex-wrap">
-      <Link to="/products"
-        className="text-white text-xs sm:text-sm font-semibold hover:underline whitespace-nowrap">
-        Products
-      </Link>
-      <svg className="w-3 h-3 text-white/70 flex-shrink-0" fill="none" viewBox="0 0 24 24"
-        stroke="currentColor" strokeWidth={2.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
-      <span className="text-white/80 text-xs sm:text-sm whitespace-nowrap">Fire Safety</span>
-      <svg className="w-3 h-3 text-white/70 flex-shrink-0" fill="none" viewBox="0 0 24 24"
-        stroke="currentColor" strokeWidth={2.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
-      <span className="text-white text-xs sm:text-sm font-medium whitespace-nowrap">{productName}</span>
+const Breadcrumb = ({ productName }) => {
+  const category = getCategoryForProduct(productName);
+  return (
+    <div className="w-full bg-[#cc1111] px-4 sm:px-8 py-2.5">
+      <div className="max-w-screen-xl mx-auto flex items-center gap-1.5 flex-wrap">
+        <Link to="/products"
+          className="text-white text-xs sm:text-sm font-semibold hover:underline whitespace-nowrap">
+          Products
+        </Link>
+        <svg className="w-3 h-3 text-white/70 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span className="text-white/80 text-xs sm:text-sm whitespace-nowrap">{category}</span>
+        <svg className="w-3 h-3 text-white/70 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span className="text-white text-xs sm:text-sm font-medium whitespace-nowrap">{productName}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ── Section block ── */
 const Section = ({ title, children }) => (
@@ -55,14 +59,13 @@ const Product = () => {
   const { data, headerImg, detailsImg, description } = product;
 
   /* Split data into sections */
-  const intro = data.find(d => d.title?.toLowerCase().includes('intro'));
+  const intro        = data.find(d => d.title?.toLowerCase().includes('intro'));
   const applications = data.find(d => d.title?.toLowerCase().includes('applic'));
-  const features = data.find(d => d.title?.toLowerCase().includes('feature'));
-  const whyCables = data.find(d => d.title?.toLowerCase().includes('why'));
-  /* Any remaining sections */
-  const others = data.filter(d => ![intro, applications, features, whyCables].includes(d));
+  const features     = data.find(d => d.title?.toLowerCase().includes('feature'));
+  const whyCables    = data.find(d => d.title?.toLowerCase().includes('why'));
+  const others       = data.filter(d => ![intro, applications, features, whyCables].includes(d));
 
-  /* Helper: render description — if array show bullets, else plain text */
+  /* Helper: render description */
   const renderDesc = (desc) => {
     if (!desc) return null;
     if (Array.isArray(desc)) {
@@ -92,7 +95,7 @@ const Product = () => {
       <div className="max-w-screen-xl mx-auto px-0">
         <div className="flex flex-col md:flex-row items-stretch">
 
-          {/* ── LEFT: Product image on blue-gradient background ── */}
+          {/* LEFT: Product image */}
           <div
             className="w-full md:w-[300px] lg:w-[340px] flex-shrink-0 overflow-hidden
                        flex items-end justify-center min-h-[260px] sm:min-h-[340px] md:min-h-0"
@@ -109,15 +112,14 @@ const Product = () => {
             />
           </div>
 
-          {/* ── RIGHT: Content card ── */}
+          {/* RIGHT: Content card */}
           <div
             style={{
-            background: 'linear-gradient(165deg, #ffffff 0%, #ffffff 35%, #c5d8ee 60%, #9cacc5 100%)'
-
+              background: 'linear-gradient(165deg, #ffffff 0%, #ffffff 35%, #c5d8ee 60%, #9cacc5 100%)'
             }}
             className="flex-1 overflow-hidden flex flex-col pl-4">
 
-            {/* Card header row */}
+            {/* Card header */}
             <div className="relative flex items-start px-5 sm:px-8 pt-6 pb-4 border-b border-gray-100">
               <div className="flex-1 pr-8 text-center">
                 <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold
@@ -150,21 +152,18 @@ const Product = () => {
             <div className="flex-1 overflow-y-auto px-5 sm:px-8 pb-6"
               style={{ maxHeight: '520px' }}>
 
-              {/* Introduction */}
               {intro && (
                 <Section title={intro.title}>
                   {renderDesc(intro.description)}
                 </Section>
               )}
 
-              {/* Applications */}
               {applications && (
                 <Section title={applications.title}>
                   {renderDesc(applications.description)}
                 </Section>
               )}
 
-              {/* Features */}
               {features && (
                 <Section title={features.title}>
                   {renderDesc(
@@ -175,14 +174,12 @@ const Product = () => {
                 </Section>
               )}
 
-              {/* Why our Cables */}
               {whyCables && (
                 <Section title={whyCables.title}>
                   {renderDesc(whyCables.description)}
                 </Section>
               )}
 
-              {/* Any other sections */}
               {others.map(item => (
                 <Section key={item.id} title={item.title}>
                   {renderDesc(item.description)}
@@ -202,15 +199,14 @@ const Product = () => {
                 </Link>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
-      {/* ── RED DIVIDER ── */}
+      {/* RED DIVIDER */}
       <div className="h-2 sm:h-3 w-full bg-[#880000]" />
 
-      {/* ── RELATED PRODUCTS ── */}
+      {/* RELATED PRODUCTS */}
       <ProductSlider />
     </div>
   );
