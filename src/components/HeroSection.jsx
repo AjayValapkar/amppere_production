@@ -61,7 +61,7 @@ const HeroSection = () => {
               className="group relative bg-icon-color p-2 md:p-4 rounded-full overflow-hidden"
               data-aos="fade-up"
               data-aos-delay={index * 200} // Adds a delay for staggered animations
-            >
+            > 
               <img
                 src={`${icon}`}
                 alt={`Icon ${index + 1}`}

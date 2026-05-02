@@ -1,15 +1,15 @@
 import productBgImg from '../assets/bg-img.png';
-import productImg_1 from '../assets/product_1.png';
+import productImg_1 from '../assets/products/instrumentionsignal.png';
 import productDetails_1 from '../assets/product_details_1.png';
-import productImg_2 from '../assets/product_2.png';
+import productImg_2 from '../assets/products/firealarm.png';
 import productDetails_2 from '../assets/product_details_2.png';
 import productImg_3 from '../assets/product_3.png';
 import productDetails_3 from '../assets/product_details_3.png';
-import productImg_4 from '../assets/product_1.png';
+import productImg_4 from '../assets/products/firesurvival1.png';
 import productDetails_4 from '../assets/product_details_2.png';
-import productImg_5 from '../assets/product_5.png';
+import productImg_5 from '../assets/products/controlcables.png';
 import productDetails_5 from '../assets/product_details_5.png';
-import productImg_6 from '../assets/product_6.png';
+import productImg_6 from '../assets/products/powerlt.png';
 import productDetails_6 from '../assets/product_details_6.png';
 import productImg_7 from '../assets/product_7.png';
 import productDetails_7 from '../assets/product_details_7.png';
@@ -32,9 +32,11 @@ import goal1 from '../assets/goal1.png'
 import goal2 from '../assets/goal2.png'
 import goal3 from '../assets/goal3.png'
 import goal4 from '../assets/goal1.png'
-import banner1 from '../assets/banner-wire.png'
-import banner2 from '../assets/banner2.png'
-import banner3 from '../assets/banner3.png'
+import banner1 from '../assets/banner/banner1.webp'
+import banner2 from '../assets/banner/banner2.webp'
+import banner3 from '../assets/banner/banner3.webp'
+import banner4 from '../assets/banner/banner4.webp'
+import banner5 from '../assets/banner/banner5.webp'
 
 import icon1 from '../assets/icon1.png'
 import icon2 from '../assets/icon2.png'
@@ -53,13 +55,17 @@ import review1 from '../assets/junai.png'
 import review2 from '../assets/nexus.png'
 import review3 from '../assets/kiam.webp'
 import review4 from '../assets/testimonial.png'
-
+import post1 from '../assets/post1.jpg'
+import post2 from '../assets/post2.jpg'
+import post3 from '../assets/post3.jpg'
 import key1 from '../assets/key1.png'
 import key2 from '../assets/key2.png'
 import key3 from '../assets/key3.png'
 import insta from '../assets/insta.png'
 import youtube from '../assets/youtube.png'
 import logo from '../assets/amp-logo.png'
+import logo1 from '../assets/amp-logo1.png'
+
 
 import comany9 from '../assets/nexus.png'
 import comany10 from '../assets/Capgemini-Logo.png'
@@ -117,6 +123,8 @@ const imagePath = {
   banner1,
   banner2,
   banner3,
+    banner4,
+  banner5,
   icon1,
   icon2,
   icon3,
@@ -141,6 +149,7 @@ const imagePath = {
   key2,
   key3,
   logo,
+  logo1,
   video2,
   video3,
   video4,
@@ -149,7 +158,10 @@ const imagePath = {
   fb,
   haloxion,
   insta,
-  youtube
+  youtube,
+  post1,
+  post2,
+  post3,
 };
 
 export default imagePath;

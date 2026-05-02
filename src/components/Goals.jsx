@@ -3,7 +3,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import imagePath from '../constant/imagePath';
 
-
 const goals = [
   {
     id: 1,
@@ -23,7 +22,7 @@ const goals = [
   },
   {
     id: 3,
-    title: 'On-Time Delivery:        ',
+    title: 'On-Time Delivery:',
     description: 'Ensuring that all orders are delivered promptly and within the promised timeframe to maintain customer satisfaction and trust',
     icon: imagePath.goal3,
     anima: 'fade-left',
@@ -49,60 +48,62 @@ const Goals = () => {
       mirror: true,
       offset: 200,
     });
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 } // Adjust as needed
+      ([entry]) => { setInView(entry.isIntersecting); },
+      { threshold: 0.1 }
     );
-
     const element = document.getElementById(`goal-${goals.id}`);
     if (element) {
       observer.observe(element);
     }
-
     return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
+      if (element) observer.unobserve(element);
     };
   }, [goals.id]);
 
   return (
-    <div className="relative bg-white p-6 md:p-20">
-      <div data-aos="fade-up" className="flex flex-row justify-center items-center mb-20">
+    <div className="relative bg-white p-6 md:px-20 md:py-20">
+      <div data-aos="fade-up" className="flex flex-row justify-center items-center mb-16">
         <p className="text-[#880000] font-bold text-3xl md:text-4xl mr-2 font-inter">OUR</p>
         <p className="text-black font-bold text-3xl md:text-4xl font-inter">GOALS</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl my-4 relative">
+
+      {/* ── grid: items-stretch makes every column the same height ── */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl mt-10 relative items-stretch">
         {goals.map(goal => (
-           <div
-           id={`goal-${goal.id}`}
-           key={goal.id}
-           className={`${
-             inView ? 'animate-borderRun' : ''
-           } ${goal.borders} -my-4`}
-         >
-            <div data-aos={goal.anima}>
+          <div
+            id={`goal-${goal.id}`}
+            key={goal.id}
+            className={`${inView ? 'animate-borderRun' : ''} ${goal.borders} -my-4`}
+          >
+            <div data-aos={goal.anima} className="h-full">
+
+              {/* card: flex-col + h-full so it fills the grid row */}
               <div
-                className="relative pb-4 mb-6 bg-white rounded-lg shadow-lg text-center transition-transform duration-500 transform hover:scale-105 hover:shadow-xl"
-                style={{ boxShadow: '0 0px 2px rgba(0, 0, 0, 0.1), 0 18px 8px rgba(0, 0, 0, 0.15)' }}
+                className="relative flex flex-col h-full pb-4 bg-white rounded-md shadow-lg text-center transition-transform duration-500 transform hover:scale-105 hover:shadow-xl"
+                style={{ boxShadow: '0 0px 2px rgba(0,0,0,0.1), 0 18px 8px rgba(0,0,0,0.15)' }}
               >
-                <div className="bg-[#AE1B19] text-white rounded-t-lg py-2 px-4 mb-4">
+                {/* red header band */}
+                <div className="bg-[#AE1B19] text-white rounded-t-md py-2 px-4 mb-4 flex-shrink-0">
                   <h3 className="text-xl font-bold">Goal {goal.id}</h3>
                 </div>
 
-                <div className="flex justify-center mb-4">
+                {/* icon */}
+                <div className="flex justify-center mb-0 flex-shrink-0">
                   <img src={goal.icon} alt={goal.title} className="font-inter w-32 h-32 object-cover" />
                 </div>
-                <div className="bg-white text-black rounded-t-lg py-2 px-4 mb-4">
-                  <h3 className="text-lg font-bold font-inter">{goal.title}</h3>
-                </div>
-                <div className="p-3">
-                  <p className="text-black text-sm md:text-sm font-inter">{goal.description}</p>
+
+                {/* title + description — flex-1 fills remaining space so all cards match */}
+                <div className="flex flex-col flex-1 justify-start">
+                  <div className="bg-white text-black rounded-t-lg py-1 px-4">
+                    <h3 className="text-lg font-bold font-inter">{goal.title}</h3>
+                  </div>
+                  <div className="p-2 flex-1">
+                    <p className="text-black text-sm font-inter">{goal.description}</p>
+                  </div>
                 </div>
               </div>
+
             </div>
           </div>
         ))}
