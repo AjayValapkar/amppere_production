@@ -65,6 +65,7 @@ import insta from '../assets/insta.png'
 import youtube from '../assets/youtube.png'
 import logo from '../assets/amp-logo.png'
 import logo1 from '../assets/amp-logo1.png'
+import footerBg from '../assets/footer.png'
 
 
 import comany9 from '../assets/nexus.png'
@@ -150,6 +151,7 @@ const imagePath = {
   key3,
   logo,
   logo1,
+  footerBg,
   video2,
   video3,
   video4,

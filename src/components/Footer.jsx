@@ -95,12 +95,14 @@ const Footer = React.memo(() => {
         <footer
             className="relative text-white overflow-hidden"
             style={{
-                backgroundImage: "url('/src/assets/foot.png')",
+                backgroundImage: `url(${imagePath.footerBg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "bottom center",
                 backgroundRepeat: "no-repeat",
             }}
         >
+            <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" />
+
             {/* ── Inner content ── */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 pt-14 pb-6">
 
