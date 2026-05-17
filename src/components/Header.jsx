@@ -2,190 +2,487 @@ import React, { useState, useEffect } from "react";
 import logo from '/src/assets/amplogo.png';
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { CATEGORIES } from '../constant/categories';
 
-const Header = React.memo(() => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
-
+/* ── SCROLL TO TOP ON ROUTE CHANGE ─────────────────────────── */
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
   useEffect(() => {
-    AOS.init({ duration: 1200 });
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'auto';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMobileMenuOpen]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+  return null;
+};
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(prev => !prev);
-  };
+/* ── SVG ICONS ─────────────────────────────────────────────── */
+const PhoneIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5.5C3 14.06 9.94 21 18.5 21c.386 0 .77-.014 1.148-.042.395-.03.75-.253.965-.598l1.93-3.112a1.1 1.1 0 00-.164-1.354l-2.52-2.52a1.1 1.1 0 00-1.43-.09l-1.42 1.065a9.04 9.04 0 01-4.357-4.357l1.065-1.42a1.1 1.1 0 00-.09-1.43L11.107 4.62a1.1 1.1 0 00-1.354-.164L6.64 6.387A1.6 1.6 0 006.042 7.352 15.96 15.96 0 003 5.5z" />
+  </svg>
+);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(prev => !prev);
-  };
+const MailIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5H4.5a2.25 2.25 0 00-2.25 2.25m19.5 0l-9.75 6.75L2.25 6.75" />
+  </svg>
+);
 
-  const toggleDropdown1 = () => {
-    setIsDropdownOpen1(prev => !prev);
+const FacebookIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const YoutubeIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.58C5.12 20.04 12 20.04 12 20.04s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
+    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
+  </svg>
+);
+
+const ChevronDown = ({ open }) => (
+  <svg xmlns="http://www.w3.org/2000/svg"
+    className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+  </svg>
+);
+
+const ChevronRight = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 flex-shrink-0"
+    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+  </svg>
+);
+
+const FireIcon = () => (
+  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21c3.6 0 6.5-2.6 6.5-6.2 0-2.7-1.6-4.8-3.6-6.7-.3 1.8-1.2 3-2.4 3.7.2-3.2-1.4-5.8-4-7.8.2 3-3 5.1-3 9.5C5.5 17.8 8.4 21 12 21z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.5c1.4 0 2.5-1 2.5-2.5 0-1.2-.7-2.1-1.6-3-.2 1-.7 1.7-1.5 2.1.1-1.6-.6-2.9-1.8-3.9.1 1.6-1.2 2.7-1.2 4.7 0 1.5 1.2 2.6 3.6 2.6z" />
+  </svg>
+);
+
+const IndustryIcon = () => (
+  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V10l5 3V9l5 4V7h4v14" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M8 17h1.5M12 17h1.5M16 17h1.5" />
+  </svg>
+);
+
+/* ════════════════════════════════════════════════════════════ */
+const Header = React.memo(() => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [prodOpen, setProdOpen] = useState(false);
+  const [companyOpen, setCompanyOpen] = useState(false);
+  const [hoveredCat, setHoveredCat] = useState(null); // ✅ FIX: removed <string | null> TypeScript generic
+
+  // Close mobile menu on route change
+  const location = useLocation();
+  useEffect(() => {
+    closeMobile();
+  }, [location.pathname]);
+
+  /* lock body scroll when drawer is open */
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  useEffect(() => { AOS.init({ duration: 1200 }); }, []);
+
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setProdOpen(false);
+    setCompanyOpen(false);
+    setHoveredCat(null);
   };
 
   const handleDownloadPDF = () => {
-    const link = document.createElement("a");
-    link.href = "/amppere_brochure.pdf"; // Replace with actual PDF path
-    link.download = "AmppereCable_Brochure.pdf";
-    link.click();
+    const a = document.createElement("a");
+    a.href = "/amppere_brochure.pdf";
+    a.download = "AmppereCable_Brochure.pdf";
+    a.click();
   };
+
+  const activeCategory = CATEGORIES.find(cat => cat.name === hoveredCat) || null;
+  const getCategoryIcon = (name) => name.toLowerCase().includes('fire') ? <FireIcon /> : <IndustryIcon />;
 
   return (
     <>
-      <header className="relative text-white p-0">
-        <div className="absolute inset-0 bg-[url('/src/assets/navback.png')] bg-cover bg-bottom filter">
-          <div className="absolute inset-0 shadow-[inset_0px_130px_40px_rgba(0,0,0,0.65)] md:shadow-[inset_0px_250px_30px_rgba(0,0,0,0.50)]"></div>
+      <ScrollToTop />
+
+      {/* ══════════════════════════════════════════
+          TOP CONTACT BAR
+      ══════════════════════════════════════════ */}
+      {/* <div className="w-full bg-black text-white p-0">
+        <div className="mx-auto flex items-center justify-between height-[40px] pl-6">
+
+          <div className="flex items-center gap-3 sm:gap-6 md:gap-10 min-w-0">
+            <a href="tel:+919370946510"
+               className="flex items-center gap-1.5 sm:gap-2 hover:text-red-400 transition-colors min-w-0">
+              <PhoneIcon />
+              <span className="hidden sm:inline text-xs sm:text-sm font-medium whitespace-nowrap">
+                +91 9370946510
+              </span>
+            </a>
+            <a href="mailto:infoampperecable@gmail.com"
+               className="flex items-center gap-1.5 sm:gap-2 hover:text-red-400 transition-colors min-w-0">
+              <MailIcon />
+              <span className="hidden sm:inline md:hidden text-xs font-medium whitespace-nowrap">
+                infoampperecable@gmail.com
+              </span>
+              <span className="hidden md:inline text-sm font-medium whitespace-nowrap">
+                infoampperecable@gmail.com
+              </span>
+            </a>
+          </div>
+
+          <div className="flex-shrink-0 bg-white rounded-tl-[90px] rounded-bl-[10px]
+                          px-6 py-2 flex items-center gap-6">
+            <a href="#" aria-label="Facebook"
+               className="text-gray-800 hover:text-red-600 transition-colors flex items-center">
+              <FacebookIcon />
+            </a>
+            <a href="#" aria-label="Instagram"
+               className="text-gray-800 hover:text-red-600 transition-colors flex items-center">
+              <InstagramIcon />
+            </a>
+            <a href="#" aria-label="YouTube"
+               className="text-gray-800 hover:text-red-600 transition-colors flex items-center">
+              <YoutubeIcon />
+            </a>
+          </div>
         </div>
-        <div className="relative z-10">
-          <nav className="container mx-auto flex flex-col items-center justify-center my-0">
-            <div className="flex justify-between items-center w-full px-4 py-0 sm:hidden">
-              <img src={logo} alt="Logo" className="h-20 mb-4" />
+      </div> */}
 
-              <button onClick={toggleMobileMenu} className="text-white focus:outline-none">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-              </button>
-            </div>
-            <div className="relative w-full text-center">
-              <div className="hidden sm:block mb-2 animate-fade-in-down">
-                <img src={logo} alt="Logo" className="h-16 sm:h-20 md:h-20 lg:h-36 mx-auto" />
-              </div>
-              {/* <p className="hidden md:block text-white text-sm mb-4">Where Quality Meets Reliability</p> */}
+      {/* ══════════════════════════════════════════
+          MAIN NAVBAR
+      ══════════════════════════════════════════ */}
+      <header className="w-full bg-[#1D102F] text-white shadow-lg sticky top-0 z-40">
+        <nav className="mx-auto flex items-center justify-between bg-[url('/src/assets/navback.png')] bg-cover bg-bottom bg-black/60 bg-blend-multiply filter
+                        px-3 py-2 sm:px-6 sm:py-3 md:px-8">
 
-              {/* Button positioned at the top-right for large screens */}
+          {/* Logo */}
+          <Link to="/" className="flex-shrink-0" onClick={closeMobile}>
+            <img src={logo} alt="Amppere Cable"
+              className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto" />
+          </Link>
+
+          {/* ── DESKTOP NAV LINKS ── */}
+          <ul className="hidden md:flex items-center gap-6 lg:gap-20">
+
+            <li>
+              <Link to="/"
+                className="text-md lg:text-base font-bold tracking-wide
+                           hover:text-[#CDEF46] transition-colors whitespace-nowrap">
+                Home
+              </Link>
+            </li>
+
+            {/* Company */}
+            <li className="relative">
               <button
-                onClick={handleDownloadPDF}
-                className="hidden sm:block bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 absolute top-0 right-0 mt-4 mr-4"
-              >
-                Download Brochure
+                onClick={() => { setCompanyOpen(p => !p); setProdOpen(false); setHoveredCat(null); }}
+                className={`flex items-center gap-1 text-md lg:text-base font-bold
+                           tracking-wide hover:text-[#CDEF46] transition-colors focus:outline-none
+                           ${companyOpen ? 'text-[#CDEF46]' : ''}`}>
+                About <ChevronDown open={companyOpen} />
               </button>
+            </li>
+
+            {/* Products — two categories with flyout */}
+            <li>
+              <button
+                onClick={() => {
+                  setProdOpen(p => !p);
+                  setCompanyOpen(false);
+                }}
+                className={`flex items-center gap-1 text-md lg:text-base font-bold
+                           tracking-wide hover:text-[#CDEF46] transition-colors focus:outline-none
+                           ${prodOpen ? 'text-[#CDEF46]' : ''}`}>
+                Product <ChevronDown open={prodOpen} />
+              </button>
+            </li>
+
+            <li>
+              <Link to="/clients"
+                className="text-md lg:text-base font-bold tracking-wide
+                           hover:text-[#CDEF46] transition-colors whitespace-nowrap">
+                Client
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/contact"
+                className="text-lg lg:text-base font-bold tracking-wide
+                           hover:text-[#CDEF46] transition-colors whitespace-nowrap">
+                Enquiry
+              </Link>
+            </li>
+          </ul>
+
+          {/* Download Brochure — desktop */}
+          <button
+            onClick={handleDownloadPDF}
+            className="hidden md:inline-flex items-center gap-2
+                       bg-red-600 hover:bg-red-700 active:bg-red-800
+                       text-white text-xs lg:text-sm
+                       px-3 lg:px-5 py-2 lg:py-2.5
+                       rounded-lg transition-colors shadow-md shadow-red-900/30
+                       whitespace-nowrap flex-shrink-0">
+            Download Brochure
+          </button>
+
+          {/* Hamburger — mobile only */}
+          <button
+            onClick={() => setMobileOpen(p => !p)}
+            aria-label="Toggle menu"
+            className="md:hidden text-white focus:outline-none p-1.5 rounded-md
+                       hover:bg-white/10 transition-colors">
+            {mobileOpen
+              ? <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              : <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            }
+          </button>
+        </nav>
+
+        {/* About Dropdown Section */}
+        <div className={`hidden md:block absolute left-12  top-full w-full bg-[#5b0d05] overflow-visible
+                        transition-all duration-200 origin-top
+                        ${companyOpen ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'}`}>
+          <div className="relative bg-[#ef2334]">
+            <div className="absolute left-1/3 top-0 w-72 -translate-x-1/2 rounded-b-xl bg-white text-gray-950 shadow-2xl overflow-hidden">
+              <Link to="/about" onClick={() => setCompanyOpen(false)}
+                className="flex items-center gap-2 pl-4 py-2 text-left text-base transition-colors
+                           hover:bg-white hover:text-red-600 group">
+                <span className={`flex h-10 w-10 items-center justify-center rounded-full border-4
+                                 border-black text-black group-hover:border-red-600 group-hover:text-red-600 transition-colors`}>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                  </svg>
+                </span>
+                <span>Company Overview</span>
+              </Link>
+              <Link to="/founder" onClick={() => setCompanyOpen(false)}
+                className="flex items-center gap-2 pl-4 py-2 text-left text-base transition-colors
+                           hover:bg-white hover:text-red-600 group border-t border-gray-100">
+                <span className={`flex h-10 w-10 items-center justify-center rounded-full border-4
+                                 border-black text-black group-hover:border-red-600 group-hover:text-red-600 transition-colors`}>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                  </svg>
+                </span>
+                <span>Founder &amp; MD</span>
+              </Link>
             </div>
-            <div className="black sm:block w-full border-t-2 md:border-t-8 border-red-600 my-0"></div>
+          </div>
+        </div>
 
-            <div className="flex justify-center items-center w-full">
-              <ul className="hidden sm:flex space-x-20 animate-fade-in-down my-5">
-                <li>
-                  <Link to="/" className="md:text-2xl lg:text-2xl font-bold hover:text-red-600 transition-transform transform hover:-translate-y-2 font-inter">
-                    Home
-                  </Link>
-                </li>
-
-                <li className="relative font-inter">
-                  <button
-                    onClick={toggleDropdown1}
-                    className="md:text-2xl lg:text-2xl font-bold hover:text-red-600 focus:outline-none"
-                  >
-                    Company
-                  </button>
-
-                  <div
-                    className={`w-60 dropdown-content absolute left-0 mt-2 bg-red-600 text-black shadow-lg rounded-lg transition-all duration-300 transform origin-top ${isDropdownOpen1 ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"}`}
-                    onMouseOut={toggleDropdown1}
-                  >
-                    <Link to="/about" className="block w-full px-4 py-2 bg-gray-300 hover:bg-white">Company Overview</Link>
-                    <Link to="/founder" className="block px-4 py-2 bg-gray-300 hover:bg-white">Founder & MD</Link>
-                  </div>
-                </li>
-
-                <li className="relative font-inter">
-                  <button
-                    onClick={toggleDropdown}
-                    className="md:text-2xl lg:text-2xl font-bold hover:text-red-600 focus:outline-none"
-                  >
-                    Products
-                  </button>
-
-                  <div
-                    className={`w-60 dropdown-content absolute left-0 mt-2 bg-red-600 text-black shadow-lg rounded-lg transition-all duration-300 transform origin-top ${isDropdownOpen ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"}`}
-                    onMouseOut={toggleDropdown}
-                  >
-                    <Link to="/product/Instrumentation Cables" className="block w-full px-4 py-2 bg-gray-300 hover:bg-white">Instrumentation Cables</Link>
-                    <Link to="/product/Fire Alarm Cables" className="block px-4 py-2 bg-gray-300 hover:bg-white">Fire Alarm Cables</Link>
-                    <Link to="/product/Flexible Cables" className="block px-4 py-2 bg-gray-300 hover:bg-white">Flexible Cables</Link>
-                    <Link to="/product/Fire Survival Cables" className="block px-4 py-2 bg-gray-300 hover:bg-white">Fire Survival Cables</Link>
-                    <Link to="/product/Co Axial Cable" className="block px-4 py-2 bg-gray-300 hover:bg-white">Co Axial Cable</Link>
-                    <Link to="/product/Power LT Cable" className="block px-4 py-2 bg-gray-300 hover:bg-white">Power LT Cable</Link>
-                    <Link to="/product/Screened Cable" className="block px-4 py-2 bg-gray-300 hover:bg-white">Screened Cable</Link>
-                    <Link to="/product/Signal Cables" className="block px-4 py-2 bg-gray-300 hover:bg-white">Signal Cable</Link>
-                  </div>
-                </li>
-
-                <li>
-                  <Link to="/clients" className="md:text-2xl lg:text-2xl font-bold hover:text-red-600 transition-transform transform hover:-translate-y-2">Clients</Link>
-                </li>
-
-                <li>
-                  <Link to="/contact" className="md:text-2xl lg:text-2xl font-bold hover:text-red-600 transition-transform transform hover:-translate-y-2">Enquiry</Link>
-                </li>
-              </ul>
-
-
+        {/* Product Dropdown Section */}
+        <div className={`hidden md:block absolute left-0 top-full w-full bg-[#5b0d05] overflow-visible
+                        transition-all duration-200 origin-top
+                        ${prodOpen ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'}`}>
+          <div className="relative bg-[#ef2334]">
+            <div className="absolute left-1/2 top-0 w-72 -translate-x-1/2 rounded-b-xl bg-white text-gray-950 shadow-2xl overflow-hidden">
+              {CATEGORIES.map((cat) => (
+                <Link
+                  key={cat.name}
+                  to={`/products?category=${encodeURIComponent(cat.name)}`}
+                  onClick={() => { setProdOpen(false); setHoveredCat(null); }}
+                  onMouseEnter={() => setHoveredCat(cat.name)}
+                  className={`flex w-full items-center gap-4 pl-6 py-2 text-left text-base transition-colors
+                             ${hoveredCat === cat.name ? 'text-red-600 bg-white' : 'hover:bg-white'}`}>
+                  <span className={`flex h-10 w-10 items-center justify-center rounded-full border-4
+                                   ${hoveredCat === cat.name ? 'border-red-600 text-red-600' : 'border-black text-black'}`}>
+                    {getCategoryIcon(cat.name)}
+                  </span>
+                  <span>{cat.name}</span>
+                </Link>
+              ))}
             </div>
-          </nav>
+          </div>
         </div>
       </header>
 
+      {/* ══════════════════════════════════════════
+          MOBILE DRAWER OVERLAY
+      ══════════════════════════════════════════ */}
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-50 sm:hidden transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        onClick={(e) => { e.stopPropagation(); closeMobile(); }}
+        className={`fixed inset-0 bg-black/60 z-50 md:hidden
+                    transition-opacity duration-300
+                    ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      />
+
+      {/* Drawer panel */}
+      <aside
+        className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] bg-black z-[60]
+                    md:hidden shadow-2xl flex flex-col
+                    transition-transform duration-300 ease-in-out
+                    ${mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'}`}
       >
-        <div className={`bg-[#202424] w-72 h-full shadow-lg transform transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
-          <button onClick={toggleMobileMenu} className="text-white p-4 focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 flex-shrink-0">
+          <img src={logo} alt="Amppere Cable" className="h-10 w-auto" />
+          <button onClick={closeMobile}
+            className="text-white p-1 rounded-md hover:bg-white/10 transition-colors focus:outline-none">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
+        </div>
 
-          <ul className="space-y-6 text-xl p-10">
-            <li><Link to="/" className="text-white hover:text-red-600" onClick={toggleMobileMenu}>Home</Link></li>
+        {/* Scrollable nav list */}
+        <nav className="flex-1 overflow-y-auto px-5 py-4">
+          <ul className="space-y-0.5">
 
             <li>
-              <button onClick={toggleDropdown1} className="text-white hover:text-red-600">
-                Company
-              </button>
-              {isDropdownOpen1 && (
-                <ul className="pl-4 mt-2 space-y-2">
-                  <li><Link to="/about" className="text-white hover:text-red-600" onClick={toggleMobileMenu}>Company Overview</Link></li>
-                  <li><Link to="/founder" className="text-white hover:text-red-600" onClick={toggleMobileMenu}>Founder & MD</Link></li>
-                </ul>
-              )}
+              <Link to="/" onClick={closeMobile}
+                className="flex items-center py-3 px-2 text-white text-sm
+                           border-b border-white/10 hover:text-red-400 transition-colors rounded-md
+                           hover:bg-white/5">
+                Home
+              </Link>
             </li>
 
-            <li>
-              <button onClick={toggleDropdown} className="text-white hover:text-red-600">
+            {/* Company accordion */}
+            <li className="border-b border-white/10">
+              <button
+                onClick={() => setCompanyOpen(p => !p)}
+                className="w-full flex items-center justify-between py-3 px-2 text-white text-sm
+                           hover:text-red-400 transition-colors focus:outline-none rounded-md hover:bg-white/5">
+                About
+                <ChevronDown open={companyOpen} />
+              </button>
+              <div className={`overflow-hidden transition-all duration-300
+                              ${companyOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                <ul className="pl-4 pb-2 space-y-0.5">
+                  <li>
+                    <Link to="/about" onClick={closeMobile}
+                      className="block py-2 px-2 text-gray-300 text-sm hover:text-red-400
+                                 rounded-md hover:bg-white/5 transition-colors">
+                      Company Overview
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/founder" onClick={closeMobile}
+                      className="block py-2 px-2 text-gray-300 text-sm hover:text-red-400
+                                 rounded-md hover:bg-white/5 transition-colors">
+                      Founder &amp; MD
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            {/* Products accordion */}
+            <li className="border-b border-white/10">
+              <button
+                onClick={() => setProdOpen(p => !p)}
+                className="w-full flex items-center justify-between py-3 px-2 text-white text-sm
+                           hover:text-red-400 transition-colors focus:outline-none rounded-md hover:bg-white/5">
                 Products
+                <ChevronDown open={prodOpen} />
               </button>
-              {isDropdownOpen && (
-                <ul className="pl-4 mt-2 space-y-2">
-                  <li><Link to="/product/Instrumentation Cables" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Instrumentation Cables</Link></li>
-                  <li><Link to="/product/Fire Alarm Cables" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Fire Alarm Cables</Link></li>
-                  <li><Link to="/product/Flexible Cables" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Flexible Cables</Link></li>
-                  <li><Link to="/product/Fire Survival Cables" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Fire Survival Cables</Link></li>
-                  <li><Link to="/product/Co Axial Cable" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Co Axial Cable</Link></li>
-                  <li><Link to="/product/Power LT Cable" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Power LT Cable</Link></li>
-                  <li><Link to="/product/Screened Cable" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Screened Cable</Link></li>
-                  <li><Link to="/product/Signal Cables" className="text-white hover:text-red-600 " onClick={toggleMobileMenu}>Signal Cables</Link></li>
+              <div className={`overflow-hidden transition-all duration-300
+                              ${prodOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                <ul className="pl-3 pb-2 space-y-0.5">
+                  {CATEGORIES.map((cat) => (
+                    <li key={cat.name}>
+                      <div className="flex items-center justify-between w-full">
+                        <Link
+                          to={`/products?category=${encodeURIComponent(cat.name)}`}
+                          onClick={closeMobile}
+                          className="flex-1 py-2.5 px-2 text-left text-gray-200 text-sm font-semibold
+                                   hover:text-red-400 transition-colors rounded-md hover:bg-white/5">
+                          {cat.name}
+                        </Link>
+                        <button
+                          onClick={() => setHoveredCat(p => p === cat.name ? null : cat.name)}
+                          className="p-2 text-gray-200 hover:text-red-400 transition-colors focus:outline-none rounded-md">
+                          <ChevronDown open={hoveredCat === cat.name} />
+                        </button>
+                      </div>
+                      <div className={`overflow-hidden transition-all duration-300
+                                    ${hoveredCat === cat.name ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <ul className="pl-4 pb-1 space-y-0.5">
+                          {cat.products.map(([label, path]) => (
+                            <li key={label}>
+                              <Link to={path} onClick={closeMobile}
+                                className="block py-2 px-2 text-gray-400 text-sm
+                                         hover:text-red-400 rounded-md hover:bg-white/5 transition-colors">
+                                {label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
-              )}
+              </div>
             </li>
 
-            <li><Link to="/clients" className="text-white hover:text-red-600" onClick={toggleMobileMenu}>Clients</Link></li>
-            <li><Link to="/contact" className="text-white hover:text-red-600" onClick={toggleMobileMenu}>Enquiry</Link></li>
+            <li>
+              <Link to="/clients" onClick={closeMobile}
+                className="flex items-center py-3 px-2 text-white text-sm
+                           border-b border-white/10 hover:text-red-400 transition-colors
+                           rounded-md hover:bg-white/5">
+                Clients
+              </Link>
+            </li>
 
             <li>
-              <button onClick={handleDownloadPDF} className="text-white bg-red-600 px-4 py-2 rounded-md w-full hover:bg-red-700">
+              <Link to="/contact" onClick={closeMobile}
+                className="flex items-center py-3 px-2 text-white text-sm
+                           border-b border-white/10 hover:text-red-400 transition-colors
+                           rounded-md hover:bg-white/5">
+                Enquiry
+              </Link>
+            </li>
+
+            <li className="pt-4">
+              <button
+                onClick={() => { handleDownloadPDF(); closeMobile(); }}
+                className="w-full bg-red-600 hover:bg-red-700 active:bg-red-800
+                           text-white text-sm px-4 py-3
+                           rounded-lg transition-colors shadow-md">
                 Download Brochure
               </button>
             </li>
+
           </ul>
+        </nav>
+
+        {/* Contact info pinned to drawer bottom */}
+        <div className="flex-shrink-0 border-t border-white/10 px-5 py-4 space-y-2.5 bg-[#0d0d20]">
+          <a href="tel:+919370946510"
+            className="flex items-center gap-2 text-gray-400 text-xs hover:text-white transition-colors">
+            <PhoneIcon /> +91 9370946510
+          </a>
+          <a href="mailto:infoampperecable@gmail.com"
+            className="flex items-center gap-2 text-gray-400 text-xs hover:text-white transition-colors">
+            <MailIcon /> infoampperecable@gmail.com
+          </a>
+          <div className="flex items-center gap-3 pt-1">
+            <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-white transition-colors"><FacebookIcon /></a>
+            <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors"><InstagramIcon /></a>
+            <a href="#" aria-label="YouTube" className="text-gray-400 hover:text-white transition-colors"><YoutubeIcon /></a>
+          </div>
         </div>
-      </div>
+      </aside>
     </>
   );
 });

@@ -151,15 +151,21 @@ const ProductCard = ({ item }) => {
 /* ════════════════════════════════════════════
    MAIN SLIDER
 ════════════════════════════════════════════ */
-const ProductSlider = () => {
+const ProductSlider = ({ items = null, title = 'OUR PRODUCTS' }) => {
   const [products, setProducts]   = useState([]);
   const [index, setIndex]         = useState(0);
   const [perView, setPerView]     = useState(4);
   const [dragging, setDragging]   = useState(false);
   const [dragStart, setDragStart] = useState(null);
 
-  /* pick random products */
+  /* use provided items or fallback to random selection */
   useEffect(() => {
+    if (Array.isArray(items)) {
+      setProducts(items);
+      setIndex(0);
+      return;
+    }
+
     const pool   = productData.filter(p => p.productName !== EXCLUDE);
     const picked = [];
     const used   = new Set();
@@ -168,7 +174,7 @@ const ProductSlider = () => {
       if (!used.has(i)) { used.add(i); picked.push(pool[i]); }
     }
     setProducts(picked);
-  }, []);
+  }, [items]);
 
   /* responsive perView */
   useEffect(() => {
@@ -202,6 +208,36 @@ const ProductSlider = () => {
 
   const cardPct = 100 / perView;
 
+  if (products.length === 0) {
+    return (
+      <section
+        style={{
+          width: '100%',
+          background: '#f6f4f4',
+          padding: 'clamp(2.5rem,5vw,4.5rem) clamp(1rem,4vw,3.5rem)',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '1280px',
+            margin: '0 auto',
+            textAlign: 'center',
+            padding: '4rem 0',
+          }}
+        >
+          <h2 style={{ color: '#000000', fontWeight: 800, margin: 0,
+                       fontSize: 'clamp(1.5rem,3.5vw,2.4rem)', lineHeight: 1.1 }}>
+            {title.split(' ')[0]} <span style={{ color: '#E91F1F' }}>{title.split(' ').slice(1).join(' ')}</span>
+          </h2>
+          <p style={{ color: '#4a4a4a', marginTop: '1rem', fontSize: '1rem', lineHeight: '1.7' }}>
+            No products found for this category. Please choose another category.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     /* ── full-width dark maroon background ── */
     <section
@@ -226,10 +262,9 @@ const ProductSlider = () => {
         }}
       >
         <div>
-        
           <h2 style={{ color: '#000000', fontWeight: 800, margin: 0,
                        fontSize: 'clamp(1.5rem,3.5vw,2.4rem)', lineHeight: 1.1 }}>
-            OUR <span style={{ color: '#E91F1F' }}>PRODUCTS</span>
+            {title.split(' ')[0]} <span style={{ color: '#E91F1F' }}>{title.split(' ').slice(1).join(' ')}</span>
           </h2>
         </div>
 
@@ -266,7 +301,7 @@ const ProductSlider = () => {
               }}
             >
               <Link
-                to={`/product/${item.productName.replace(/\s+/g, ' ')}`}
+                to={`/product/${encodeURIComponent(item.productName)}`}
                 style={{ textDecoration: 'none' }}
                 tabIndex={-1}
               >

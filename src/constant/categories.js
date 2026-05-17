@@ -4,17 +4,17 @@ export const CATEGORIES = [
     products: [
       ["Fire Alarm Cables",    "/product/Fire Alarm Cables"],
       ["Fire Survival Cables", "/product/Fire Survival Cables"],
-      ["Screened Cable",       "/product/Screened Cable"],
-      ["Signal Cables",        "/product/Signal Cables"],
+      ["Fire Resistant Cables",       "/product/Screened Cable"],
+      ["Smoke Detection Cables",        "/product/Signal Cables"],
     ],
   },
   {
     name: "Industrial Cables",
     products: [
-      ["Instrumentation Cables", "/product/Instrumentation Cables"],
-      ["Flexible Cables",        "/product/Flexible Cables"],
-      ["Co Axial Cable",         "/product/Co Axial Cable"],
-      ["Power LT Cable",         "/product/Power LT Cable"],
+      ["Instrumentation Signal Cables", "/product/Instrumentation Cables"],
+      ["Control Cables",        "/product/Flexible Cables"],
+      ["RTD / Thermocouple Cables",         "/product/Co Axial Cable"],
+      ["Power LT Cables",         "/product/Power LT Cable"],
     ],
   },
 ];

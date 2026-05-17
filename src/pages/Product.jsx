@@ -98,8 +98,8 @@ const Product = () => {
           {/* LEFT: Product image */}
           <div
             className="w-full md:w-[300px] lg:w-[340px] flex-shrink-0 overflow-hidden
-                       flex items-end justify-center min-h-[260px] sm:min-h-[340px] md:min-h-0"
-            style={{
+                       flex items-end justify-center h-full"
+            style={{ 
               background: 'linear-gradient(180deg, #ffffff 0%, #c5d8ee 50%, #3d6bb5 100%)',
             }}
           >
@@ -107,7 +107,7 @@ const Product = () => {
               src={headerImg}
               alt={productName}
               draggable={false}
-              className="w-auto h-[230px] sm:h-[300px] md:h-[380px] lg:h-[440px]
+              className="w-auto h-full
                          object-contain object-bottom"
             />
           </div>
@@ -150,7 +150,7 @@ const Product = () => {
 
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto px-5 sm:px-8 pb-6"
-              style={{ maxHeight: '520px' }}>
+              style={{ maxHeight: '420px' }}>
 
               {intro && (
                 <Section title={intro.title}>
