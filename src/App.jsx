@@ -9,6 +9,7 @@ import Products from "./pages/Products";
 import HeroSection from "./components/HeroSection";
 import CopperConductors from "./components/CopperConductors";
 import AboutUs from "./pages/AboutUs";
+import Blogs from "./pages/Blogs";
 import EnquiryPage from "./pages/EnquiryPage";
 import Founder from "./pages/Founder";
 import ScrollToTop from "./components/ScrollToTop";
@@ -45,6 +46,7 @@ function App() {
           />
           <Route path="/product/:productName" element={<Product />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/blog" element={<Blogs />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/products" element={<Products />} />
           <Route path="/founder" element={<Founder />} />

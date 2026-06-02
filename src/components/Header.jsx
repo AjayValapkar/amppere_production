@@ -221,6 +221,14 @@ const Header = React.memo(() => {
             </li>
 
             <li>
+              <Link to="/blog"
+                className="text-md lg:text-base font-bold tracking-wide
+                           hover:text-[#CDEF46] transition-colors whitespace-nowrap">
+                Blogs
+              </Link>
+            </li>
+
+            <li>
               <Link to="/contact"
                 className="text-lg lg:text-base font-bold tracking-wide
                            hover:text-[#CDEF46] transition-colors whitespace-nowrap">
@@ -441,6 +449,15 @@ const Header = React.memo(() => {
                            border-b border-white/10 hover:text-red-400 transition-colors
                            rounded-md hover:bg-white/5">
                 Clients
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/blog" onClick={closeMobile}
+                className="flex items-center py-3 px-2 text-white text-sm
+                           border-b border-white/10 hover:text-red-400 transition-colors
+                           rounded-md hover:bg-white/5">
+                Blogs
               </Link>
             </li>
 

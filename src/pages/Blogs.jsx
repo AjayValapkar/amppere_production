@@ -1,0 +1,510 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+// Accent: #ea2222 (electric blue) | Background: #04040c | Surface: #0a0a16
+
+// ── SVG Thumbnails ──────────────────────────────────────────────────────────
+
+const FireCableThumbnail = () => (
+  <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+    <rect width="600" height="280" fill="#08080f" />
+    {[...Array(7)].map((_, i) => (
+      <line key={`v${i}`} x1={i * 100} y1="0" x2={i * 100} y2="280" stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    {[...Array(4)].map((_, i) => (
+      <line key={`h${i}`} x1="0" y1={i * 70} x2="600" y2={i * 70} stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    <ellipse cx="200" cy="155" rx="160" ry="100" fill="#ff380015" />
+    {/* Cable cross-section rings */}
+    <circle cx="200" cy="155" r="80" fill="#0e0e1c" stroke="#ea222218" strokeWidth="1" />
+    <circle cx="200" cy="155" r="62" fill="#0a0a17" stroke="#ea222225" strokeWidth="1.5" />
+    <circle cx="200" cy="155" r="44" fill="#10101e" stroke="#ea222235" strokeWidth="1.5" />
+    <circle cx="200" cy="155" r="26" fill="#ea2222" opacity="0.85" />
+    <circle cx="200" cy="155" r="13" fill="#08080f" />
+    {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+      const rad = (angle * Math.PI) / 180;
+      return <circle key={i} cx={200 + 33 * Math.cos(rad)} cy={155 + 33 * Math.sin(rad)} r="4.5" fill="#ea2222" opacity="0.55" />;
+    })}
+    {/* Flame */}
+    <path d="M390 260 C390 215 368 192 384 158 C390 141 407 129 401 102 C418 129 424 151 412 173 C430 150 424 122 442 110 C445 138 433 160 447 182 C459 160 452 136 465 122 C470 151 460 177 475 199 C481 216 475 240 458 260Z" fill="#FF5C1A" opacity="0.95" />
+    <path d="M408 260 C408 228 390 212 402 184 C407 170 421 162 416 137 C430 162 435 182 425 200 C439 182 434 158 448 145 C452 168 442 188 453 206 C459 192 455 174 465 163 C470 185 462 208 473 224 C476 237 473 252 460 260Z" fill="#FF9A20" opacity="0.85" />
+    <path d="M422 260 C422 240 410 228 417 210 C421 199 431 193 427 174 C437 193 441 208 434 221 C443 208 439 192 448 182 C451 198 445 213 453 224 C455 235 452 249 443 260Z" fill="#FFDD55" opacity="0.75" />
+    {/* Cable horizontal */}
+    <rect x="0" y="143" width="110" height="24" rx="3" fill="#14141f" />
+    <rect x="0" y="147" width="110" height="4" fill="#ea222230" />
+    <rect x="0" y="155" width="110" height="4" fill="#ea222218" />
+    <rect x="0" y="163" width="110" height="4" fill="#ea222230" />
+    {/* Labels */}
+    <rect x="464" y="78" width="116" height="28" rx="5" fill="#ea222212" stroke="#ea222228" strokeWidth="1" />
+    <text x="522" y="97" textAnchor="middle" fill="#ea2222" fontSize="11" fontFamily="monospace" fontWeight="700">FIRE RATED</text>
+    <text x="522" y="170" textAnchor="middle" fill="#FF5C1A" fontSize="30" fontFamily="monospace" fontWeight="700">850°C</text>
+    <text x="522" y="190" textAnchor="middle" fill="#ffffff35" fontSize="10" fontFamily="sans-serif">circuit integrity</text>
+    <text x="28" y="268" fill="#ffffff25" fontSize="9" fontFamily="monospace">FIRE ALARM &amp; SURVIVAL CABLE</text>
+    <text x="572" y="268" textAnchor="end" fill="#ea222255" fontSize="9" fontFamily="monospace">IEC 60331</text>
+  </svg>
+);
+
+const CopperCableThumbnail = () => (
+  <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+    <rect width="600" height="280" fill="#08080f" />
+    {[...Array(7)].map((_, i) => (
+      <line key={`v${i}`} x1={i * 100} y1="0" x2={i * 100} y2="280" stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    {[...Array(4)].map((_, i) => (
+      <line key={`h${i}`} x1="0" y1={i * 70} x2="600" y2={i * 70} stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    <ellipse cx="300" cy="145" rx="230" ry="95" fill="#b8621015" />
+    {[
+      { cx: 180, cy: 135, r: 60 },
+      { cx: 300, cy: 150, r: 52 },
+      { cx: 408, cy: 135, r: 45 },
+    ].map((c, i) => (
+      <g key={i}>
+        <circle cx={c.cx} cy={c.cy} r={c.r} fill="#0d0d1a" stroke="#b8621025" strokeWidth="1.5" />
+        <circle cx={c.cx} cy={c.cy} r={c.r - 12} fill="#12121e" stroke="#ea222218" strokeWidth="1" />
+        <circle cx={c.cx} cy={c.cy} r={c.r - 24} fill="#b86210" opacity="0.85" />
+        <circle cx={c.cx} cy={c.cy} r={c.r - 34} fill="#d4822a" opacity="0.9" />
+        {[0, 51, 102, 153, 204, 255, 306].map((angle, j) => {
+          const rad = (angle * Math.PI) / 180;
+          return <circle key={j} cx={c.cx + (c.r - 30) * Math.cos(rad)} cy={c.cy + (c.r - 30) * Math.sin(rad)} r="3" fill="#e8a060" opacity="0.65" />;
+        })}
+      </g>
+    ))}
+    <rect x="0" y="200" width="600" height="16" rx="3" fill="#14141f" />
+    <rect x="0" y="204" width="600" height="3" fill="#b8621035" />
+    <rect x="0" y="209" width="600" height="3" fill="#b8621018" />
+    <rect x="0" y="214" width="600" height="3" fill="#b8621035" />
+    <rect x="18" y="22" width="150" height="28" rx="5" fill="#b8621012" stroke="#b8621028" strokeWidth="1" />
+    <text x="93" y="41" textAnchor="middle" fill="#d4822a" fontSize="11" fontFamily="monospace" fontWeight="700">COPPER CONDUCTOR</text>
+    <text x="510" y="76" textAnchor="middle" fill="#ea2222" fontSize="28" fontFamily="monospace" fontWeight="700">99.9%</text>
+    <text x="510" y="96" textAnchor="middle" fill="#ffffff35" fontSize="10" fontFamily="sans-serif">purity grade</text>
+    <text x="510" y="128" textAnchor="middle" fill="#d4822a" fontSize="24" fontFamily="monospace" fontWeight="700">58 MS/m</text>
+    <text x="510" y="148" textAnchor="middle" fill="#ffffff35" fontSize="10" fontFamily="sans-serif">conductivity</text>
+    <text x="28" y="268" fill="#ffffff25" fontSize="9" fontFamily="monospace">INSTRUMENTATION &amp; CONTROL CABLE</text>
+    <text x="572" y="268" textAnchor="end" fill="#ea222255" fontSize="9" fontFamily="monospace">IS 1554</text>
+  </svg>
+);
+
+// ── Blog Data ───────────────────────────────────────────────────────────────
+
+const posts = [
+  {
+    id: 1,
+    badge: 'Fire Safety',
+    readTime: '9 min read',
+    date: 'June 2025',
+    title: 'Fire Alarm & Survival Cables',
+    cardSummary: 'Fire alarm and fire survival cables are the silent guardians of every industrial facility. Engineered to maintain electrical circuit integrity at temperatures beyond 850°C, these cables ensure that life-safety systems — alarms, sprinklers, emergency lighting, evacuation PA — keep running exactly when they are needed most.',
+    thumbnail: <FireCableThumbnail />,
+    tags: ['Fire Safety', 'IEC 60331', 'LSZH Cable', 'BS 6387', 'NBC 2016'],
+    fullContent: {
+      metaTitle: 'Why Fire Alarm & Fire Survival Cables Are Critical for Industrial Safety | Amppere Cable',
+      intro: 'In a fire emergency, the difference between a safe evacuation and a catastrophe often comes down to one overlooked specification: the type of cable wired into your safety systems. Fire alarm and fire survival cables are purpose-built to keep electrical circuits intact when everything around them is burning. This guide explains what they are, why they matter, how they are classified, and how to choose the right product for your facility — with insights from Amppere Cable, one of India\'s trusted manufacturers of certified fire-rated wiring.',
+      sections: [
+        {
+          heading: 'What Are Fire Alarm Cables and How Do They Differ from Standard Cables?',
+          body: `A standard PVC-insulated cable will begin to soften, sag, and short-circuit within minutes of being exposed to temperatures above 160–200°C. A fire in an industrial facility can easily produce localised temperatures of 600°C or higher within the first ten minutes. If the cables supplying your fire alarm panel, sprinkler solenoids, or emergency lighting fail at this point, the very systems designed to protect people become useless.
+
+Fire alarm cables are constructed with specialised insulation compounds — typically LSZH (Low Smoke Zero Halogen) or FR-PVC — that resist ignition and slow flame propagation. They are designed to keep alarm signal circuits functional for a defined period even under moderate heat and flame exposure.
+
+Fire survival cables go significantly further. Using mineral insulation (MICC — Mineral Insulated Copper Clad) or advanced ceramic-silicone composite wrapping, fire survival cables can maintain circuit integrity at temperatures exceeding 850°C for 3 hours or more. This is the class of cable required for life-critical circuits: sprinkler pump feeds, smoke extraction fan supplies, emergency generator switchgear connections, and fire-fighter lift supplies.
+
+The key difference is not just materials — it is the performance guarantee under sustained, severe fire conditions.`
+        },
+        {
+          heading: 'International and Indian Standards: What Certifications to Look For',
+          body: `Specifying a fire-rated cable without verifying its certification is a risk. Multiple standards govern this product category, and understanding them will help you shortlist the right product:
+
+IEC 60331 — The foundational international standard for fire-resistance of electric cables. It specifies test methods for circuit integrity under flame exposure at 750°C (Part 21) and 830°C (Part 23). Products tested to this standard will carry an E30, E60, E90, or E120 rating, indicating how many minutes of circuit integrity they maintain.
+
+BS 6387 — The British Standard most widely referenced on Indian projects, especially for fire survival cables. Cables are classified with three letters: Category (flame exposure at 650°C, 750°C, or 950°C), Water (resistance to fire + water spray simultaneously), and Mechanical (resistance to fire + mechanical shock). A CWZ rating is considered the highest performance class.
+
+IS 1554 / IS 694 — Indian standards for PVC insulated and FR wiring, referenced in NBC 2016. While not as detailed as IEC 60331 for fire survival performance, compliance is mandatory for projects under Indian building regulations.
+
+NBC 2016 (National Building Code of India) — Chapter 4 specifies that all life-safety circuits in Group A (residential), Group C (institutional), Group D (assembly), and Group E (business) occupancies must use fire-resistant cables for alarm, detection, suppression, and emergency lighting circuits.
+
+Amppere Cable supplies products with complete third-party test certificates traceable to NABL-accredited laboratories, ensuring your project documentation is audit-ready from tender stage through fire NOC clearance.`
+        },
+        {
+          heading: 'Where Fire Survival Cables Are Mandatory in Industrial & Commercial Buildings',
+          body: `Many project teams treat fire survival cable as an optional upgrade. In reality, Indian and international codes make it mandatory across a wide range of circuit types. Here is where specification is non-negotiable:
+
+Emergency Lighting Circuits: The circuit feeding emergency escape luminaires must remain operational during a fire for the entire duration of evacuation. IS 3646 and NBC 2016 require fire-resistant cable for these circuits in buildings over two floors.
+
+Sprinkler Pump Supply Cables: NFPA 20 and local fire authority requirements mandate that the power supply from the main panel to the sprinkler pump panel and the jockey pump run in fire-survival or mineral-insulated cable to ensure suppression systems activate even as the fire spreads toward the electrical room.
+
+Fire Alarm Panel Loop Cables: The detection loops, sounder circuits, and interface modules connected to the fire alarm control panel must maintain continuity to allow zone-by-zone response. Failure of a single short circuit on an unprotected loop can silence an entire floor's detectors.
+
+Smoke Extraction Fan Feeds: In basements, car parks, atriums, and shopping malls, mechanical smoke extraction must continue running for 1–2 hours post fire-flashover. Supply cables must be rated accordingly, typically to BS 6387 CWZ.
+
+Stairwell Pressurisation Systems: High-rise buildings use stairwell pressurisation fans to keep escape routes smoke-free. The supply cables for these fans traverse the building vertically — passing through zones that may already be on fire — making fire survival cable the only viable specification.
+
+Firefighter Lift Circuits: NBC 2016 Clause 4.13 requires a dedicated firefighter lift in buildings above 15 metres, with all associated control and power circuits in fire-survival cable.`
+        },
+        {
+          heading: 'LSZH vs Standard FR-PVC: Why Insulation Compound Matters',
+          body: `Even in cables not required to maintain circuit integrity, the choice of insulation compound affects the survivability of building occupants during a fire.
+
+Standard PVC — When burned, PVC releases hydrogen chloride (HCl) gas, which reacts with moisture in mucous membranes to form hydrochloric acid. Exposure concentrations above 50 ppm cause incapacitation. In a fully involved commercial building fire, PVC-heavy electrical installations can produce toxic smoke that makes evacuation corridors lethal within minutes.
+
+FR-PVC (Flame Retardant PVC) — Reduces flame propagation speed but still releases HCl when it eventually burns. Suitable for general wiring in well-ventilated areas.
+
+LSZH (Low Smoke Zero Halogen) — Formulated with aluminium trihydrate or magnesium hydroxide fillers that suppress flame and produce minimal, halogen-free smoke. In confined spaces such as underground car parks, data centres, tunnels, shipboard installations, and metro station buildings, LSZH is mandatory.
+
+Amppere Cable's LSZH range is manufactured to IEC 60754 (halogen content), IEC 61034 (smoke density), and IEC 60332-3 (flame propagation) standards. We supply both armoured and unarmoured variants in conductor cross-sections from 1.5 mm² up to 300 mm².`
+        },
+        {
+          heading: 'Installation Best Practices for Fire-Rated Cable',
+          body: `Specifying the right cable is only half the equation. Poor installation will nullify even the best product's performance.
+
+Dedicated fire-rated cable routes: Fire survival cables should run in dedicated fire-rated conduits, cable trays, or ducts — physically separated from standard power and data cables. This prevents non-rated cables from collapsing onto fire-rated circuits and causing mechanical damage during a fire.
+
+Minimum bend radius: Mineral-insulated cables are rigid and have strict minimum bend radius requirements (typically 6× the cable outer diameter). Excessive bending during installation cracks the mineral insulation powder, creating voids that reduce circuit integrity.
+
+Junction boxes and fittings: Every junction box, gland, and termination point on a fire survival circuit must also be fire-rated. A fire survival cable terminated into a standard plastic junction box provides no protection at the termination point — the weakest link will fail first.
+
+Cable management systems: Use fire-rated cable trays and support systems with intumescent packing at fire-wall penetrations. Under heat, intumescent material expands to seal gaps and prevent fire spread between compartments.
+
+Testing after installation: Before handover, conduct insulation resistance testing (IR test at 500V DC) on all fire survival circuits to verify that installation has not damaged the mineral insulation. Document and file test records as part of the O&M manual.`
+        },
+        {
+          heading: 'Amppere Cable\'s Fire Safety Product Range',
+          body: `Amppere Cable manufactures a comprehensive range of fire-rated wiring products from our Gujarat facility, supplying projects across India in the industrial, infrastructure, commercial, and healthcare sectors.
+
+Our fire safety cable range includes: Fire Alarm Cable (2-core and multi-core, LSZH, screened and unscreened, 0.5 mm² to 2.5 mm²), Fire Survival Cable (mineral insulated and ceramic-silicone composite, 1.5 mm² to 35 mm², armoured and unarmoured), Emergency Lighting Cable (2-core and 3-core, LSZH, 1.5 mm² and 2.5 mm²), and LSZH Control and Instrumentation Cable (2-core to 24-core pairs, individually screened and overall screened options).
+
+Every product batch is accompanied by factory test certificates, third-party test reports, and a drum-level Certificate of Conformance. Our technical team can assist your consultants and specifiers with compliance documentation, material submittals, and project-specific technical data sheets.`
+        }
+      ]
+    }
+  },
+  {
+    id: 2,
+    badge: 'Technical Guide',
+    readTime: '10 min read',
+    date: 'May 2025',
+    title: 'Copper Conductor Cable Selection Guide',
+    cardSummary: 'Copper conductor cables form the backbone of every electrical installation — from the smallest instrument loop to the main power feeder of a heavy industrial plant. Choosing incorrectly costs projects in rework, warranty failures, and energy losses. This complete guide covers conductor class, insulation type, current ratings, and compliance standards.',
+    thumbnail: <CopperCableThumbnail />,
+    tags: ['Copper Conductor', 'IS 8130', 'XLPE Cable', 'Instrumentation', 'Cable Sizing'],
+    fullContent: {
+      metaTitle: 'How to Choose the Right Copper Conductor Cable for Industrial Projects | Amppere Cable',
+      intro: 'Every electrical installation — from a small control panel to a 500 MW power plant — is only as reliable as the cables running through it. Copper conductor cables carry power, signals, and control data across every system in a facility. Yet cable specification is frequently treated as an afterthought, with decisions made on cost alone. The result is premature insulation failure, unplanned downtime, and expensive rewiring projects that could have been avoided with correct specification from day one. This guide provides a thorough, application-focused reference for selecting the right copper conductor cable for your project.',
+      sections: [
+        {
+          heading: 'Why Copper Remains the Conductor of Choice for Industrial Applications',
+          body: `Aluminium conductors offer a cost advantage at large cross-sections, but copper dominates in industrial and commercial installations for well-understood reasons.
+
+Conductivity: Copper has an electrical conductivity of approximately 58 MS/m (mega-Siemens per metre) — 60% higher than aluminium at equivalent cross-sectional area. This means a smaller copper conductor can carry the same current as a larger aluminium one, saving space in cable trays, conduits, and switchboards.
+
+Mechanical properties: Copper is highly ductile and resists fatigue cracking under vibration and repeated flexing. For control panels, instrument loops, and motor connections that see regular movement during maintenance, copper's mechanical resilience prevents the type of conductor fatigue failures common in aluminium at small cross-sections.
+
+Solderability and termination reliability: Copper terminates cleanly in compression lugs, insulation displacement connectors, and screw terminals without the creep issues associated with aluminium. Aluminium connections under compressive terminals gradually relax over time, increasing contact resistance and generating heat.
+
+Corrosion resistance: While copper does oxidise, the oxide layer is conductive — unlike the resistive aluminium oxide that forms on aluminium conductors. This makes copper more forgiving in installations that are not perfectly maintained.
+
+EC-Grade (electrolytic copper) used by Amppere Cable achieves 99.9% purity, ensuring resistivity is tightly controlled at 0.0172 Ω·mm²/m — the value specified in IS 8130 and IEC 60228 for Class 1 and Class 2 conductors.`
+        },
+        {
+          heading: 'Understanding IS 8130 Conductor Classes: Choosing the Right Flexibility Level',
+          body: `IS 8130 (aligned with IEC 60228) classifies conductors by their construction, which determines their flexibility and appropriate installation environment. Choosing the wrong class is one of the most common specification errors on Indian projects.
+
+Class 1 — Solid Conductor: A single solid copper wire. Used for fixed wiring in conduits, trunking, and embedded installations where the cable will never be moved after installation. Maximum conductor size is typically 16 mm². The advantage is low cost; the disadvantage is zero tolerance for repeated flexing — a solid conductor bent repeatedly at the same point will work-harden and fracture.
+
+Class 2 — Stranded Conductor: Multiple solid strands twisted together. The standard for most power distribution applications — sub-main cables, motor feeders, transformer connections, panel internal wiring in fixed positions. Offers moderate flexibility for initial installation routing but is not designed for repeated movement.
+
+Class 5 — Flexible Conductor: Significantly more strands of finer wire than Class 2. The correct choice for control panels where wires are dressed and re-terminated during commissioning and maintenance, instrument signal cables that run to transmitters mounted on vibrating equipment, and multi-core control cables in junction boxes subject to thermal expansion movement. Using Class 2 in a flexible application leads to conductor fatigue and intermittent open-circuit faults that are extremely difficult to diagnose.
+
+Class 6 — Extra-Flexible Conductor: The highest flexibility class, using ultra-fine stranding. Specified for trailing cables (crane festoon systems, robotic arm wiring), portable power tools, welding leads, and any application with constant, repeated cable movement. Class 6 cables require more careful gland selection to ensure all fine strands are captured in the termination.
+
+Class 4 — Stranded with Higher Flexibility than Class 2: An intermediate class less commonly specified in India but relevant for some European-origin machine imports. Equivalent to DIN VDE 0295 Class 4.`
+        },
+        {
+          heading: 'Insulation Systems: PVC, XLPE, LSZH, and Silicon Rubber Compared',
+          body: `The insulation compound determines the cable's temperature rating, chemical resistance, fire performance, and lifespan. Here is a practical comparison for industrial specification:
+
+PVC (Polyvinyl Chloride) — HR/FR Grade: The most widely used insulation in India for LV power and control applications. Operating temperature 70°C (conductor), with some HR-PVC grades rated to 85°C. Cost-effective, easy to process, and available in all colours. Suitable for indoor installations, cable trays, conduits, and control panels in ambient temperature environments. Limitation: releases toxic HCl fumes when burned. Not suitable for temperatures above 70°C continuous or for chemically aggressive environments.
+
+XLPE (Cross-Linked Polyethylene): Cross-linking polyethylene molecules creates a thermosetting structure that resists thermal deformation. Operating temperature 90°C continuous (250°C for 5 seconds under short-circuit conditions, vs 160°C for PVC). XLPE provides significantly higher current-carrying capacity in the same conductor cross-section compared to PVC. Preferred for HT cables, sub-station feeders, generator output cables, and any long cable run where the higher operating temperature translates to a smaller cross-section and lower installation cost. Excellent moisture resistance and very low dielectric losses — important for long MV cable runs.
+
+LSZH (Low Smoke Zero Halogen): Mandatory in confined spaces with high occupancy — metro stations, airport terminals, tunnels, underground car parks, marine vessels, data centres, and hospitals. LSZH compounds emit minimal smoke and no halogenic gases, maintaining visibility and air quality in evacuation corridors. Operating temperature typically 70–90°C depending on compound. Slightly higher cost than equivalent PVC, justified by life-safety requirements and increasingly mandated by building consultants for all high-occupancy buildings regardless of code requirement.
+
+EPR (Ethylene Propylene Rubber): Provides excellent flexibility at low temperatures (to -40°C), superior ozone resistance, and good HV performance. Used for trailing cables in cold storage, portable HV equipment, and medium-voltage motor connections where flexibility is required.
+
+Silicon Rubber: For extreme heat environments — inside furnaces, adjacent to heat treatment baths, in laundry and food processing facilities. Silicon rubber cables operate continuously at 180°C (some grades to 200°C) and remain flexible even after prolonged heat exposure. Fragile compared to XLPE — requires careful mechanical protection.`
+        },
+        {
+          heading: 'Armoured vs. Unarmoured: When to Specify Steel Wire Armour',
+          body: `Steel Wire Armour (SWA) provides mechanical protection against crushing, rodent damage, and accidental dig-through. Knowing when armour is necessary — and when it adds cost without benefit — is an important specification skill.
+
+Direct burial cables: Any cable laid directly in the ground without a protective duct or concrete encasing should be armoured. IS 1554 / IS 7098 specifies the required armour type for LV direct burial applications. In rocky soil, double steel tape armour (DSTA) may be needed.
+
+Cable tray and surface wiring: Armour is not required for cables installed in dedicated cable trays above ground level, provided the tray is in a protected plant room or cable tunnel not exposed to vehicular traffic or mechanical hazards. Unarmoured cables on cable trays reduce tray fill weight and are easier to terminate.
+
+Outdoor risers and overhead runs: For cables running vertically on building exteriors or between outdoor structures, SWA is recommended to resist physical damage. The armour also provides support against the cable's own weight in long vertical runs.
+
+Instrumentation cables: Most instrumentation signal cables (4–20 mA loops, thermocouples, RTD circuits) are unarmoured but use individual pair screening and an overall screen to control interference. Only specify armour on instrument cables where mechanical damage risk exists, as armour can introduce ground loop issues if not correctly bonded.
+
+Amppere Cable supplies both armoured (SWA and DSTA) and unarmoured variants across all insulation types, with outer sheath options in PVC, LSZH, and PE for specific environmental requirements.`
+        },
+        {
+          heading: 'Cable Sizing: Current Capacity, Voltage Drop, and Short-Circuit Rating',
+          body: `Correct cable sizing requires checking three independent criteria. A cable that passes one check may still fail another.
+
+1. Current-Carrying Capacity (Ampacity): Determined from IS 3961 derating tables, corrected for: ambient temperature (derate above 30°C reference), grouping factor (cables touching each other in bunched trays reduce heat dissipation), installation method (buried cable has better cooling than a cable in a sealed conduit), and conductor temperature class (a 90°C rated XLPE cable carries more current than a 70°C PVC cable in the same cross-section). Undersizing a cable causes sustained overheating that degrades insulation at an accelerated rate — a cable running 10°C above its rated temperature loses approximately half its expected service life.
+
+2. Voltage Drop: In long cable runs — particularly in instrumentation loops and remote distribution boards — voltage drop can cause relays to drop out, transmitters to lose accuracy, or motor starters to fail to pick up. The formula for a single-phase or DC circuit: ΔV = (2 × L × I × ρ) / A, where L is run length in metres, I is load current in amps, ρ is resistivity (0.0172 Ω·mm²/m for copper at 20°C), and A is conductor cross-section in mm². For three-phase circuits, substitute the factor 2 with √3. Acceptable voltage drop is typically 2.5% for power circuits and 1.5% for instrumentation under IS 732.
+
+3. Short-Circuit Rating: For cables feeding switchgear or motor starters, the cable must withstand the prospective fault current for the duration of the upstream protection (fuse or circuit breaker operating time). The adiabatic equation: S = (I × √t) / k, where S is the minimum conductor cross-section in mm², I is fault current in amps, t is fault duration in seconds, and k is a material constant (115 for PVC-insulated copper conductors, 143 for XLPE). Undersizing for fault current is a serious risk — the cable will be damaged or destroyed in a fault event, potentially causing a fire.
+
+Amppere Cable's technical support team provides free cable sizing assistance for project-specific applications. Contact us with your load schedule, cable route distances, installation method, and ambient temperature data.`
+        },
+        {
+          heading: 'Instrumentation and Control Cable Specifics',
+          body: `Instrumentation cable is a distinct sub-category of copper conductor cable with requirements beyond those of power cables. Getting the specification right directly affects the measurement accuracy and signal integrity of your plant.
+
+Pair vs. Multi-core construction: Analogue instrumentation signals (4–20 mA, 1–5 V, thermocouple millivolt signals) are carried on individual twisted pairs. Twisting balances the capacitance and inductance of the two conductors, dramatically reducing susceptibility to magnetic field interference from adjacent power cables. Multi-pair cables with overall screen are used for signal highways; individually shielded pairs within an overall shield are used for critical signals that must be isolated from each other.
+
+Screening and earthing: Individual pair screens (typically aluminium-polyester foil with a drain wire) must be earthed at one end only — usually the control room end — to avoid ground loops that introduce 50 Hz noise. The overall cable screen provides additional protection from electrostatic fields and should also be earthed at one point. Screen continuity must be maintained through junction boxes using screened terminals.
+
+Capacitance and attenuation: For long cable runs carrying HART-protocol signals or Foundation Fieldbus, conductor-to-conductor capacitance is critical. High-capacitance cables attenuate the superimposed digital signal riding on the 4–20 mA loop. Specify the capacitance value (typically <100 pF/m for HART-compatible cables) and verify with the instrument vendor's cable specification.
+
+Thermocouple extension cables: Type K, J, T, and N thermocouples each require extension cables made from the same alloy pair as the thermocouple conductors. Using standard copper extension cable introduces a parasitic thermocouple junction at each connection point, introducing a measurement error proportional to the temperature differential at that junction. Amppere Cable supplies type-matched thermocouple extension cables to IEC 60584 and ANSI MC96.1 standards.`
+        }
+      ]
+    }
+  }
+];
+
+// ── Blog Card Component ──────────────────────────────────────────────────────
+
+const BlogCard = ({ post, onReadMore }) => (
+  <article style={{ display: 'flex', flexDirection: 'column', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}
+    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(74,158,255,0.3)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+    onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
+  >
+    {/* Thumbnail */}
+    <div style={{ position: 'relative', width: '100%', aspectRatio: '2/1', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0 }}>{post.thumbnail}</div>
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 50%, #04040c 100%)' }} />
+      <span style={{ position: 'absolute', top: 16, left: 16, background: 'rgba(74,158,255,0.12)', border: '1px solid rgba(74,158,255,0.25)', color: '#ea2222', fontSize: 11, fontWeight: 700, padding: '4px 12px', borderRadius: 100, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+        {post.badge}
+      </span>
+      <span style={{ position: 'absolute', top: 16, right: 16, color: 'rgba(255,255,255,0.35)', fontSize: 11, display: 'flex', alignItems: 'center', gap: 4 }}>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        {post.readTime}
+      </span>
+    </div>
+
+    {/* Body */}
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, padding: '28px 28px 24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+        <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.18em' }}>{post.date}</span>
+        <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(255,255,255,0.2)' }} />
+        <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.18em' }}>Amppere Cable</span>
+      </div>
+
+      <h2 style={{ fontSize: 22, fontWeight: 800, color: '#fff', lineHeight: 1.25, marginBottom: 12 }}>
+        {post.title}
+      </h2>
+
+      <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, marginBottom: 20, flex: 1 }}>
+        {post.cardSummary}
+      </p>
+
+      {/* Tags */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20 }}>
+        {post.tags.map((tag, i) => (
+          <span key={i} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.3)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 100, padding: '3px 10px' }}>
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 18, borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+        <Link to="/contact" style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6, transition: 'color 0.2s' }}
+          onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.8)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
+        >
+          Talk to our team
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </Link>
+        <button onClick={() => onReadMore(post)}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#ea2222', color: '#ffffff', fontSize: 13, fontWeight: 700, padding: '10px 20px', borderRadius: 100, border: 'none', cursor: 'pointer', transition: 'all 0.15s' }}
+          onMouseEnter={e => e.currentTarget.style.background = '#3a8ef0'}
+          onMouseLeave={e => e.currentTarget.style.background = '#ea2222'}
+        >
+          Read More
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </article>
+);
+
+// ── Blog Modal ───────────────────────────────────────────────────────────────
+
+const BlogModal = ({ post, onClose }) => {
+  if (!post) return null;
+  const { fullContent } = post;
+
+  return (
+    <div onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', overflowY: 'auto', padding: '32px 16px' }}
+    >
+      <div style={{ position: 'relative', width: '100%', maxWidth: 760, borderRadius: 28, border: '1px solid rgba(255,255,255,0.1)', background: '#0a0a16', boxShadow: '0 40px 100px rgba(0,0,0,0.7)', margin: 'auto' }}>
+        {/* Close */}
+        <button onClick={onClose} aria-label="Close"
+          style={{ position: 'absolute', top: 18, right: 18, zIndex: 10, width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background 0.2s' }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
+        {/* Thumbnail */}
+        <div style={{ borderRadius: '28px 28px 0 0', overflow: 'hidden', aspectRatio: '21/9' }}>
+          {post.thumbnail}
+        </div>
+
+        <div style={{ padding: '36px 40px 40px' }}>
+          {/* Meta row */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10, marginBottom: 18 }}>
+            <span style={{ background: 'rgba(74,158,255,0.1)', border: '1px solid rgba(74,158,255,0.2)', color: '#ea2222', fontSize: 11, fontWeight: 700, padding: '4px 12px', borderRadius: 100, letterSpacing: '0.06em', textTransform: 'uppercase' }}>{post.badge}</span>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>{post.date}</span>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>·</span>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', gap: 4 }}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {post.readTime}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h1 style={{ fontSize: 26, fontWeight: 800, color: '#fff', lineHeight: 1.25, marginBottom: 18 }}>
+            {fullContent.metaTitle.split('|')[0].trim()}
+          </h1>
+
+          {/* Intro callout */}
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, marginBottom: 36, paddingLeft: 16, borderLeft: '3px solid #ea2222' }}>
+            {fullContent.intro}
+          </p>
+
+          {/* Sections */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
+            {fullContent.sections.map((section, i) => (
+              <div key={i}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                  <span style={{ flexShrink: 0, width: 24, height: 24, borderRadius: '50%', background: 'rgba(74,158,255,0.1)', border: '1px solid rgba(74,158,255,0.2)', color: '#ea2222', fontSize: 11, fontFamily: 'monospace', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>
+                    {i + 1}
+                  </span>
+                  {section.heading}
+                </h3>
+                <div style={{ paddingLeft: 36 }}>
+                  {section.body.split('\n').filter(p => p.trim()).map((para, j) => (
+                    <p key={j} style={{ fontSize: 14, lineHeight: 1.85, color: 'rgba(255,255,255,0.5)', marginBottom: 12 }}>
+                      {para}
+                    </p>
+                  ))}
+                </div>
+                {i < fullContent.sections.length - 1 && (
+                  <div style={{ marginTop: 24, height: '1px', background: 'rgba(255,255,255,0.05)' }} />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Tags */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 36, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+            {post.tags.map((tag, i) => (
+              <span key={i} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.25)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 100, padding: '4px 10px' }}>#{tag}</span>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div style={{ marginTop: 28, borderRadius: 18, background: 'rgba(74,158,255,0.05)', border: '1px solid rgba(74,158,255,0.12)', padding: '24px 28px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+            <div>
+              <p style={{ color: '#fff', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>Need certified cables for your project?</p>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>Our team helps you specify, size, and source the right cable for any application.</p>
+            </div>
+            <Link to="/contact" onClick={onClose}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#ea2222', color: '#04040c', fontSize: 13, fontWeight: 700, padding: '11px 22px', borderRadius: 100, textDecoration: 'none', transition: 'background 0.15s', flexShrink: 0 }}
+              onMouseEnter={e => e.currentTarget.style.background = '#3a8ef0'}
+              onMouseLeave={e => e.currentTarget.style.background = '#ea2222'}
+            >
+              Contact Us
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Main Page ────────────────────────────────────────────────────────────────
+
+const Blogs = () => {
+  const [activePost, setActivePost] = useState(null);
+
+  return (
+    <div style={{ background: '#04040c', color: '#fff', minHeight: '100vh' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px' }}>
+
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: 60 }}>
+          <p style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.35em', color: '#ea2222', marginBottom: 14 }}>
+            Insights & Resources
+          </p>
+          <h1 style={{ fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 800, color: '#fff', lineHeight: 1.2, marginBottom: 18 }}>
+            Expert Blogs on <span style={{ color: '#ea2222' }}>Cables & Wiring</span>
+          </h1>
+          <p style={{ maxWidth: 580, margin: '0 auto', fontSize: 16, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
+            In-depth technical guidance on fire-rated cables, copper conductor selection, and industrial wiring standards for engineers and project teams across India.
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 24 }}>
+            {['Certified Products', 'IEC / IS Standards', 'Industrial Grade'].map((label, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#ea2222', opacity: 0.6 }} />}
+                <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.18em' }}>{label}</span>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 28 }}>
+          {posts.map(post => (
+            <BlogCard key={post.id} post={post} onReadMore={setActivePost} />
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div style={{ marginTop: 64, borderRadius: 24, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', padding: '40px 44px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}>
+          <div>
+            <p style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.25em', color: '#ea2222', marginBottom: 8 }}>Amppere Cable · Gujarat, India</p>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 8 }}>
+              Looking for certified cables for your next project?
+            </h2>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)' }}>
+              Fire alarm, fire survival, copper conductor, and instrumentation cables — all tested in-house and ready to supply across India.
+            </p>
+          </div>
+          <Link to="/contact"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#ea2222', color: '#ffffff', fontSize: 13, fontWeight: 700, padding: '13px 26px', borderRadius: 100, textDecoration: 'none', flexShrink: 0, transition: 'background 0.15s' }}
+            onMouseEnter={e => e.currentTarget.style.background = '#3a8ef0'}
+            onMouseLeave={e => e.currentTarget.style.background = '#ea2222'}
+          >
+            Request a Quote
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </Link>
+        </div>
+      </div>
+
+      {/* Modal */}
+      <BlogModal post={activePost} onClose={() => setActivePost(null)} />
+    </div>
+  );
+};
+
+export default Blogs;

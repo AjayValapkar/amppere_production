@@ -37,7 +37,7 @@ const slides = [
 const STATS = [
     { value: '30+', label: 'Years Of\nExperience' },
     { value: '100+', label: 'Number Of\nClients' },
-    { value: '3500K+', label: 'Total Cable Length\nManufactured (Mtr)' },
+    { value: '5000K+', label: 'Total Cable Length\nManufactured (Mtr)' },
 ];
 
 const INTERVAL = 5000;

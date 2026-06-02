@@ -72,7 +72,7 @@ export default function AboutUs() {
           <div className="bg-gradient-to-t from-black to-gray-800 text-white pt-10 pb-14 px-4 md:px-6">
             <p className="text-2xl md:text-4xl font-bold mb-6">About Us</p>
             <p className="text-sm md:text-xl">
-              Our products, certified by CE and RoHS, are crafted by a team of experienced professionals with more than 20 years of expertise in Instrumentation, Fire Alarm, and Fire Survival Cables.
+              Our products, certified by CE and RoHS, are crafted by a team of experienced professionals with more than 30+ years of expertise in Instrumentation, Fire Alarm, and Fire Survival Cables.
             </p>
           </div>
 
