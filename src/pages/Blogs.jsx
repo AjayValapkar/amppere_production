@@ -84,8 +84,144 @@ const CopperCableThumbnail = () => (
     <text x="572" y="268" textAnchor="end" fill="#ea222255" fontSize="9" fontFamily="monospace">IS 1554</text>
   </svg>
 );
+const LTHTCableThumbnail = () => (
+  <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+    <rect width="600" height="280" fill="#08080f" />
+    {[...Array(7)].map((_, i) => (
+      <line key={`v${i}`} x1={i * 100} y1="0" x2={i * 100} y2="280" stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    {[...Array(4)].map((_, i) => (
+      <line key={`h${i}`} x1="0" y1={i * 70} x2="600" y2={i * 70} stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    <ellipse cx="300" cy="145" rx="230" ry="95" fill="#2a6fd415" />
 
-// ── Blog Data ───────────────────────────────────────────────────────────────
+    {/* Cable cross-section: conductor -> insulation -> screen -> armour -> sheath */}
+    <g>
+      <circle cx="220" cy="142" r="88" fill="#0d0d1a" stroke="#8a8a9a30" strokeWidth="1.5" />
+      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, j) => {
+        const rad = (angle * Math.PI) / 180;
+        const r = 78;
+        return (
+          <circle
+            key={j}
+            cx={220 + r * Math.cos(rad)}
+            cy={142 + r * Math.sin(rad)}
+            r="6.5"
+            fill="#9a9aac"
+            stroke="#08080f"
+            strokeWidth="1.5"
+          />
+        );
+      })}
+      <circle cx="220" cy="142" r="62" fill="#12121e" stroke="#2a6fd428" strokeWidth="1" />
+      <circle cx="220" cy="142" r="50" fill="#1a1a2c" stroke="#2a6fd435" strokeWidth="1" />
+      <circle cx="220" cy="142" r="38" fill="#2a6fd4" opacity="0.85" />
+      <circle cx="220" cy="142" r="26" fill="#d4822a" opacity="0.92" />
+      {[0, 51, 102, 153, 204, 255, 306].map((angle, j) => {
+        const rad = (angle * Math.PI) / 180;
+        return <circle key={j} cx={220 + 20 * Math.cos(rad)} cy={142 + 20 * Math.sin(rad)} r="3" fill="#f0b060" opacity="0.7" />;
+      })}
+    </g>
+
+    {/* voltage arc / bolt motif */}
+    <path
+      d="M 420 90 L 398 148 L 418 148 L 402 200 L 448 132 L 424 132 Z"
+      fill="none"
+      stroke="#2a6fd4"
+      strokeWidth="2.5"
+      strokeLinejoin="round"
+      opacity="0.8"
+    />
+
+    <rect x="0" y="200" width="600" height="16" rx="3" fill="#14141f" />
+    <rect x="0" y="204" width="600" height="3" fill="#2a6fd435" />
+    <rect x="0" y="209" width="600" height="3" fill="#2a6fd418" />
+    <rect x="0" y="214" width="600" height="3" fill="#2a6fd435" />
+
+    <rect x="18" y="22" width="168" height="28" rx="5" fill="#2a6fd412" stroke="#2a6fd428" strokeWidth="1" />
+    <text x="102" y="41" textAnchor="middle" fill="#6fa4e8" fontSize="11" fontFamily="monospace" fontWeight="700">LT &amp; HT POWER CABLE</text>
+
+    <text x="510" y="76" textAnchor="middle" fill="#2a6fd4" fontSize="26" fontFamily="monospace" fontWeight="700">33 kV</text>
+    <text x="510" y="96" textAnchor="middle" fill="#ffffff35" fontSize="10" fontFamily="sans-serif">max HT grade</text>
+
+    <text x="510" y="128" textAnchor="middle" fill="#d4822a" fontSize="24" fontFamily="monospace" fontWeight="700">90°C</text>
+    <text x="510" y="148" textAnchor="middle" fill="#ffffff35" fontSize="10" fontFamily="sans-serif">XLPE rated</text>
+
+    <text x="28" y="268" fill="#ffffff25" fontSize="9" fontFamily="monospace">XLPE ARMOURED POWER CABLE</text>
+    <text x="572" y="268" textAnchor="end" fill="#2a6fd455" fontSize="9" fontFamily="monospace">IS 7098</text>
+  </svg>
+);
+
+const SolarCableThumbnail = () => (
+  <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+    <rect width="600" height="280" fill="#08080f" />
+    {[...Array(7)].map((_, i) => (
+      <line key={`v${i}`} x1={i * 100} y1="0" x2={i * 100} y2="280" stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    {[...Array(4)].map((_, i) => (
+      <line key={`h${i}`} x1="0" y1={i * 70} x2="600" y2={i * 70} stroke="#ffffff06" strokeWidth="1" />
+    ))}
+    <ellipse cx="300" cy="145" rx="230" ry="95" fill="#e8b02015" />
+
+    {/* PV panel grid */}
+    <g opacity="0.9">
+      <rect x="90" y="90" width="150" height="104" rx="4" fill="#12121e" stroke="#e8b02030" strokeWidth="1.5" />
+      {[0, 1, 2].map((r) =>
+        [0, 1, 2, 3].map((c) => (
+          <rect
+            key={`${r}-${c}`}
+            x={98 + c * 34}
+            y={98 + r * 32}
+            width="28"
+            height="26"
+            fill="#1a1a2c"
+            stroke="#e8b02020"
+            strokeWidth="1"
+          />
+        ))
+      )}
+      <line x1="90" y1="90" x2="240" y2="194" stroke="#e8b02015" strokeWidth="1" />
+    </g>
+
+    {/* sun */}
+    <g>
+      <circle cx="392" cy="118" r="30" fill="#e8b020" opacity="0.9" />
+      <circle cx="392" cy="118" r="42" fill="none" stroke="#e8b02035" strokeWidth="1.5" />
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, j) => {
+        const rad = (angle * Math.PI) / 180;
+        const x1 = 392 + 48 * Math.cos(rad);
+        const y1 = 118 + 48 * Math.sin(rad);
+        const x2 = 392 + 60 * Math.cos(rad);
+        const y2 = 118 + 60 * Math.sin(rad);
+        return <line key={j} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#e8b02050" strokeWidth="2" strokeLinecap="round" />;
+      })}
+    </g>
+
+    {/* DC cable running from panel to sun/inverter side, with copper core detail */}
+    <path d="M 165 194 C 165 220, 300 220, 330 200" fill="none" stroke="#1a1a2c" strokeWidth="14" strokeLinecap="round" />
+    <path d="M 165 194 C 165 220, 300 220, 330 200" fill="none" stroke="#d4822a" strokeWidth="5" strokeLinecap="round" opacity="0.85" />
+    <path d="M 165 194 C 165 220, 300 220, 330 200" fill="none" stroke="#f0b060" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="1 7" opacity="0.6" />
+
+    <rect x="0" y="200" width="600" height="16" rx="3" fill="#14141f" />
+    <rect x="0" y="204" width="600" height="3" fill="#e8b02035" />
+    <rect x="0" y="209" width="600" height="3" fill="#e8b02018" />
+    <rect x="0" y="214" width="600" height="3" fill="#e8b02035" />
+
+    <rect x="18" y="22" width="140" height="28" rx="5" fill="#e8b02012" stroke="#e8b02028" strokeWidth="1" />
+    <text x="88" y="41" textAnchor="middle" fill="#e8b020" fontSize="11" fontFamily="monospace" fontWeight="700">SOLAR DC CABLE</text>
+
+    <text x="510" y="76" textAnchor="middle" fill="#e8b020" fontSize="26" fontFamily="monospace" fontWeight="700">1.5 kV</text>
+    <text x="510" y="96" textAnchor="middle" fill="#ffffff35" fontSize="10" fontFamily="sans-serif">DC rated</text>
+
+    <text x="510" y="128" textAnchor="middle" fill="#d4822a" fontSize="24" fontFamily="monospace" fontWeight="700">25 YRS</text>
+    <text x="510" y="148" textAnchor="middle" fill="#ffffff35" fontSize="10" fontFamily="sans-serif">design life</text>
+
+    <text x="28" y="268" fill="#ffffff25" fontSize="9" fontFamily="monospace">XLPO PHOTOVOLTAIC CABLE</text>
+    <text x="572" y="268" textAnchor="end" fill="#e8b02055" fontSize="9" fontFamily="monospace">IEC 62930</text>
+  </svg>
+);
+
+
 
 const posts = [
   {
@@ -270,6 +406,172 @@ Screening and earthing: Individual pair screens (typically aluminium-polyester f
 Capacitance and attenuation: For long cable runs carrying HART-protocol signals or Foundation Fieldbus, conductor-to-conductor capacitance is critical. High-capacitance cables attenuate the superimposed digital signal riding on the 4–20 mA loop. Specify the capacitance value (typically <100 pF/m for HART-compatible cables) and verify with the instrument vendor's cable specification.
 
 Thermocouple extension cables: Type K, J, T, and N thermocouples each require extension cables made from the same alloy pair as the thermocouple conductors. Using standard copper extension cable introduces a parasitic thermocouple junction at each connection point, introducing a measurement error proportional to the temperature differential at that junction. Amppere Cable supplies type-matched thermocouple extension cables to IEC 60584 and ANSI MC96.1 standards.`
+        }
+      ]
+    }
+  },
+
+  // ─── POST 3 (NEW) ───────────────────────────────────────────────────────────────
+  {
+    id: 3,
+    badge: 'Power Cables',
+    readTime: '9 min read',
+    date: 'July 2026',
+    title: 'LT & HT XLPE Armoured Power Cables: A Buyer\u2019s Guide',
+    cardSummary: 'LT and HT XLPE armoured cables carry the power that keeps plants, substations, and buildings running — but the two categories are governed by different standards, insulation thicknesses, and installation rules. This guide breaks down when to specify LT vs HT, how armour type is chosen, and what buyers should check before placing an order.',
+    thumbnail: <LTHTCableThumbnail />,
+    tags: ['XLPE Cable', 'IS 7098', 'HT Cable', 'Armoured Cable', 'Cable Laying'],
+    fullContent: {
+      metaTitle: 'LT & HT XLPE Armoured Power Cable Buyer\u2019s Guide | Amppere Cable',
+      intro: 'Power cable failures rarely happen because a project used the wrong brand — they happen because the voltage grade, armour type, or installation method didn\u2019t match the actual site conditions. LT and HT XLPE armoured cables look similar on a datasheet but serve very different roles in a distribution network. This guide explains how the two categories differ, how to read a voltage grade correctly, and what to verify before your next power cable order leaves the factory.',
+      sections: [
+        {
+          heading: 'LT vs HT: What the Voltage Grade Actually Tells You',
+          body: `LT (Low Tension) and HT (High Tension) are shorthand for the voltage class a cable is designed to carry, and the distinction changes almost everything about how the cable is built and installed.
+
+LT Cables: Rated up to 1.1 kV (typically written as 1.1 kV grade or 650/1100 V), LT cables handle the final stretch of power distribution — from a transformer or DG set to distribution panels, motor control centres, lighting panels, and individual machine feeders. Most factory floor wiring, building services, and low-voltage plant distribution falls into this category.
+
+HT Cables: Rated from 3.3 kV up to 33 kV (with 11 kV and 22 kV being the most common grades specified in India), HT cables carry power at the sub-station and primary distribution level — from a utility feeder or captive generation source into a facility's main HT panel, and between transformers and switchgear in larger industrial and infrastructure projects.
+
+Voltage grade is written as U0/U, where U0 is the rated voltage between conductor and earth and U is the rated voltage between conductors. An 11 kV cable, for example, is typically marked 6.35/11 kV. Ordering the wrong grade is not just a performance issue — insulation thickness is calculated specifically for the rated voltage, and an undersized cable will fail dielectric testing or break down under service voltage stress over time.`
+        },
+        {
+          heading: 'Why XLPE Dominates LT and HT Power Cable Specification',
+          body: `XLPE (Cross-Linked Polyethylene) has largely replaced PVC as the default insulation for both LT and HT power cables in India, and the reasons matter for anyone specifying or purchasing cable.
+
+Higher continuous operating temperature: XLPE is rated for 90°C continuous conductor temperature against 70°C for PVC, and can briefly withstand up to 250°C under short-circuit conditions versus 160°C for PVC. This translates directly into a smaller conductor cross-section carrying the same load — a meaningful cost saving on long HT feeder runs.
+
+Better dielectric performance: XLPE has a lower dielectric constant and lower dielectric losses than PVC, which becomes increasingly important as voltage grade rises. This is one reason PVC insulation is rarely used above 1.1 kV in modern installations.
+
+Moisture and chemical resistance: The cross-linked molecular structure resists water treeing — a slow degradation process in which moisture ingress creates microscopic conductive paths through the insulation over years of service. This is a leading cause of underground HT cable failure, and XLPE's resistance to it significantly extends service life for direct-buried and duct-routed cables.
+
+IS 7098 (Part 1 for LT, Part 2 for HT) governs XLPE insulated PVC sheathed cables in India and specifies minimum insulation thickness, conductor screening, and test requirements by voltage grade — this is the standard your test certificates should reference.`
+        },
+        {
+          heading: 'Armour Types and When Each One Is the Right Choice',
+          body: `Both LT and HT XLPE cables are commonly specified with armour, but the type of armour should match the mechanical stress the cable route will actually experience — not be chosen by default.
+
+Round Wire Armour (RWA / SWA): Galvanised steel wires laid helically over the inner sheath. This is the standard choice for single-core and multi-core LT and HT cables installed in trenches, ducts, or cable trays exposed to moderate mechanical risk. RWA provides good tensile strength, which matters for cables pulled through long duct runs.
+
+Flat Strip Armour: Steel strips rather than round wires, typically used on larger three-core and multi-core HT cables. Flat strip armour offers higher crush resistance for direct-buried cables in areas with vehicular traffic or future excavation risk, and is the more common choice for HT distribution cable at 11 kV and above.
+
+Double Steel Tape Armour (DSTA): Two overlapping layers of steel tape, specified where a cable route passes through rocky soil, areas with heavy vehicular loading, or locations with known rodent activity. DSTA offers the highest mechanical protection of the common armour types but adds weight and reduces flexibility, which affects minimum bend radius during installation.
+
+Single-core HT cable note: For single-core HT cables, armour material matters for a different reason — a magnetic (steel) armour on a single-core AC cable induces eddy current losses from the alternating magnetic field around the conductor. For single-core HT applications, non-magnetic armour (aluminium wire) is generally specified to avoid this heating effect and the associated derating penalty.`
+        },
+        {
+          heading: 'Cable Laying Methods and How They Affect Sizing',
+          body: `The same cable, rated for the same load, will carry a different maximum current depending on how it is installed — this is one of the most common oversights in power cable specification.
+
+Direct burial: Soil provides good heat dissipation, allowing higher current ratings than duct or air installation for the same cable size, provided native soil thermal resistivity is favourable. Direct burial requires appropriate armour and a sand cushioning bed with brick or tile protection as per IS 1255 installation guidelines.
+
+Duct or pipe installation: Ducted cables run hotter than direct-buried cables at the same load because air trapped in the duct is a poorer heat conductor than surrounding soil. Cables run in ducts typically require derating compared to the same route laid by direct burial.
+
+Cable tray in open air: Free air installation with good ventilation offers the best heat dissipation and the highest current-carrying capacity for a given cable size — but exposes the cable to greater mechanical and environmental risk, which is why tray-mounted cables are often specified with a UV-resistant outer sheath if exposed outdoors.
+
+Grouped cables: Multiple cables laid together — whether in a trench, duct bank, or tray — reduce each other's ability to dissipate heat. IS 3961 provides grouping derating factors based on the number of circuits and their spacing, and ignoring this factor is a common cause of underrated, overheating installations even when the individual cable size looks correct on paper.`
+        },
+        {
+          heading: 'What to Verify Before Placing an LT or HT Cable Order',
+          body: `A power cable represents a long-term investment buried in the ground or run through inaccessible trays — verifying the specification before manufacture is far cheaper than discovering a problem after installation.
+
+Confirm the voltage grade (U0/U) matches your system's actual line and phase voltage, not just the nominal system voltage.
+
+Check conductor material and class against your load and flexibility requirements — Class 2 stranded copper or aluminium for fixed power runs, higher classes only where genuinely needed.
+
+Verify armour type matches the installation method and mechanical risk of the actual route, not a generic default.
+
+Request routine and type test certificates referencing IS 7098 for the specific voltage grade and cross-section ordered, including high-voltage withstand test results.
+
+For HT cables specifically, confirm conductor screening and insulation screening are included — these semi-conducting layers are mandatory above 1.1 kV to control electrical stress at the conductor and insulation surfaces, and their absence is a serious defect, not a cosmetic omission.
+
+Amppere Cable manufactures LT XLPE armoured cables up to 1.1 kV and HT XLPE armoured cables up to 33 kV, in copper and aluminium conductors, with full IS 7098 type test documentation available for every voltage grade and cross-section we supply.`
+        }
+      ]
+    }
+  },
+
+  // ─── POST 4 (NEW) ───────────────────────────────────────────────────────────────
+  {
+    id: 4,
+    badge: 'Renewable Energy',
+    readTime: '8 min read',
+    date: 'July 2026',
+    title: 'Solar PV Cable Guide: Choosing the Right DC Cable for Solar Projects',
+    cardSummary: 'Solar DC cable sits outdoors, unshielded, for 25 years or more — carrying the full output of every panel string it serves. A cable that isn\u2019t built for this exposure becomes the single point of failure in an otherwise well-designed solar plant. Here is what rooftop and utility-scale project teams should verify before specifying PV cable.',
+    thumbnail: <SolarCableThumbnail />,
+    tags: ['Solar Cable', 'IEC 62930', 'TUV 2Pfg1169', 'XLPO', 'DC Cable'],
+    fullContent: {
+      metaTitle: 'How to Choose the Right Solar DC Cable for PV Projects | Amppere Cable',
+      intro: 'A solar plant is designed for a 25-year service life, but the DC cable connecting panels to inverters is often specified as an afterthought — priced and ordered late in the project, after the panels and inverters are already selected. That cable, however, spends its entire service life outdoors, exposed to UV radiation, temperature swings, and mechanical stress, with almost no opportunity for inspection once installed on a rooftop or tracker structure. This guide covers what actually distinguishes a genuine solar cable from a repurposed general-purpose cable, and what to check before your next PV project is wired.',
+      sections: [
+        {
+          heading: 'Why Standard Power Cable Fails in Solar Applications',
+          body: `It is tempting to specify a general-purpose XLPE or PVC cable for DC wiring between panels and combiner boxes — the voltage and current look modest compared to an industrial power circuit. This is a mistake that shows up years into a plant's life, not on day one.
+
+UV exposure: Solar DC cable runs are frequently exposed to direct sunlight for their entire service life, whether on open-rack ground-mount structures or rooftop installations. Standard PVC and XLPE compounds are not formulated for continuous UV exposure and degrade — becoming brittle and cracking — well before the 25-year design life of the panels they serve.
+
+Extreme temperature cycling: Rooftop and open-field cable can see surface temperatures well above 70°C in direct summer sun, while cooling significantly at night — a daily thermal cycle repeated for decades. General-purpose cable insulation is not qualified for this kind of continuous thermal cycling and will fatigue faster than a compound designed for it.
+
+DC arc risk: A DC fault behaves differently from an AC fault — there is no natural zero-crossing to help extinguish an arc, which means a DC arc fault can sustain and escalate rather than self-extinguish. Cable and connection quality directly affects how much resistance and heat builds up at a poor termination, which has been a documented cause of rooftop solar fires internationally.
+
+Double insulation requirement: Because solar cable often runs in exposed locations without conduit protection, and because a DC system is typically ungrounded on the array side, dedicated PV cable is built with double-layer insulation to provide the protection that a single PVC layer, adequate indoors, does not provide outdoors.`
+        },
+        {
+          heading: 'Key Standards Governing Solar PV Cable',
+          body: `Unlike general power cable, PV cable has its own dedicated certification pathway, and checking for the right certificate is the fastest way to separate genuine solar cable from relabelled general-purpose stock.
+
+EN 50618: The current European harmonised standard for cables specifically intended for photovoltaic systems, widely referenced on Indian and international tenders as the benchmark for PV cable performance.
+
+IEC 62930: The international standard aligned with EN 50618, covering electric cables for photovoltaic systems with a rated voltage up to 1.5 kV DC — increasingly the reference standard as PV system voltages have risen with larger inverters and longer strings.
+
+TUV 2Pfg 1169: An older but still widely referenced German certification scheme for PV cable. Note that TUV Rheinland formally withdrew this scheme in 2017 in favour of EN 50618 and IEC 62930 — cable carrying only a 2Pfg 1169 certificate without an EN 50618 or IEC 62930 equivalent should be treated with caution on current projects.
+
+UL 4703: The relevant standard for the North American market, referenced on export orders or projects following US-aligned specifications.
+
+A genuine solar cable will typically be rated for 1.5 kV DC or 1.8 kV DC, with a continuous conductor operating temperature of 90°C and short-term withstand up to 120°C — figures that should appear explicitly on the manufacturer's datasheet and test certificate, not just implied by the "solar cable" label.`
+        },
+        {
+          heading: 'Insulation Material: Why XLPO Is the Standard for PV Cable',
+          body: `Most certified solar cable uses XLPO (Cross-Linked Polyolefin) rather than standard XLPE or PVC, and the difference is meaningful for outdoor DC applications.
+
+XLPO is electron-beam cross-linked, a process that creates a denser, more chemically stable molecular structure than chemical cross-linking, giving the compound better resistance to UV degradation, ozone exposure, and the oils and greases sometimes present near ground-mount tracker mechanisms.
+
+Halogen-free formulation: XLPO-based solar cable is typically LSZH (Low Smoke Zero Halogen) by default, an important consideration where DC combiner runs pass through or near buildings, cable trenches, or enclosed rooftop plant rooms.
+
+Flexibility retention: Because XLPO remains flexible across a wide temperature range, it resists the cracking that stiffer compounds develop after repeated thermal cycling — critical for cable that flexes slightly with thermal expansion of mounting structures over its service life, and for cable runs terminated with pre-crimped MC4-style connectors where any stiffness at the termination point becomes a stress concentration.
+
+Tinned copper conductors: Most certified solar cable uses tinned copper rather than bare copper. The tin coating resists oxidation and corrosion at the strand level over decades of outdoor exposure and improves long-term solderability and crimp connection reliability at connector interfaces.`
+        },
+        {
+          heading: 'Sizing and Selecting Cable for String and DC Combiner Runs',
+          body: `Solar DC cable sizing follows the same underlying electrical principles as any power cable, but with project-specific factors that general cable sizing tables do not account for.
+
+Voltage drop across the string: Because PV modules operate at their maximum power point only within a narrow voltage window, excessive voltage drop between panels and inverter directly reduces system energy yield, not just efficiency on paper. Industry practice generally targets voltage drop under 1–3% across the full DC run from array to inverter, tighter than typical AC power circuit tolerances.
+
+Ambient and cable-surface temperature derating: Because solar cable is frequently installed on or near hot rooftop surfaces, sizing tables must use the actual expected cable surface temperature — which can be significantly higher than shaded ambient air temperature — rather than a generic outdoor ambient figure.
+
+Short-circuit current rating: PV modules have a limited short-circuit current close to their rated operating current, which changes fault current calculations compared to grid-connected AC circuits, but cable and connector short-circuit withstand still needs to be checked against the combined output of parallel-connected strings feeding into a combiner box.
+
+Route and conduit considerations: Where DC cable is bundled in conduit or tray with multiple parallel circuits, grouping derating still applies, and closely bundled cables in direct sun add an additional thermal load beyond ambient air temperature that should be accounted for in the sizing calculation.
+
+Amppere Cable's technical team can support DC cable sizing calculations for rooftop and utility-scale project teams, based on string configuration, run length, mounting condition, and site ambient data.`
+        },
+        {
+          heading: 'What to Check Before Ordering Solar Cable for a Project',
+          body: `With solar EPC timelines often compressed and cable frequently procured as a late-stage line item, a short verification checklist prevents costly rework or premature field failures.
+
+Confirm the cable carries an EN 50618 or IEC 62930 certificate (or both) from an accredited third-party laboratory, not only a manufacturer's self-declaration.
+
+Check the rated DC voltage (1.5 kV or 1.8 kV) matches or exceeds your system's maximum string voltage, including the cold-weather voltage rise correction applied during string design.
+
+Verify conductor material is tinned copper and confirm the cross-section against your voltage drop and current-carrying calculations for the specific run length involved.
+
+Confirm insulation and sheath colour coding (commonly black with red or black polarity marking) matches your site wiring convention to reduce polarity error risk during installation.
+
+Request UV and weathering test data specific to your installation's expected outdoor exposure duration, particularly for utility-scale ground-mount projects with long, permanently exposed cable runs.
+
+Amppere Cable manufactures XLPO-insulated solar DC cable in single-core constructions from 4 mm² to 240 mm², with tinned copper conductors and full third-party certification documentation available for rooftop, ground-mount, and floating solar project specifications.`
         }
       ]
     }
