@@ -116,8 +116,8 @@ export const productData = [
     {
         productId: 5,
         productName: 'Instrumentation Signal Cables',
-        headerImg: imagePath.productImg_4,
-        detailsImg: imagePath.productDetails_4,
+        headerImg: imagePath.productImg_5,
+        detailsImg: imagePath.productDetails_5,
         data: [
             {
                 id: 1,
@@ -144,8 +144,8 @@ export const productData = [
     {
         productId: 6,
         productName: 'Power LT Cables',
-        headerImg: imagePath.productImg_5,
-        detailsImg: imagePath.productDetails_5,
+        headerImg: imagePath.productImg_4,
+        detailsImg: imagePath.productDetails_4,
         data: [
             {
                 id: 1,

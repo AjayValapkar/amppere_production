@@ -305,7 +305,7 @@ Testing after installation: Before handover, conduct insulation resistance testi
         },
         {
           heading: 'Amppere Cable\'s Fire Safety Product Range',
-          body: `Amppere Cable manufactures a comprehensive range of fire-rated wiring products from our Gujarat facility, supplying projects across India in the industrial, infrastructure, commercial, and healthcare sectors.
+          body: `Amppere Cable manufactures a comprehensive range of fire-rated wiring products from our Maharashtra facility, supplying projects across India in the industrial, infrastructure, commercial, and healthcare sectors.
 
 Our fire safety cable range includes: Fire Alarm Cable (2-core and multi-core, LSZH, screened and unscreened, 0.5 mm² to 2.5 mm²), Fire Survival Cable (mineral insulated and ceramic-silicone composite, 1.5 mm² to 35 mm², armoured and unarmoured), Emergency Lighting Cable (2-core and 3-core, LSZH, 1.5 mm² and 2.5 mm²), and LSZH Control and Instrumentation Cable (2-core to 24-core pairs, individually screened and overall screened options).
 
@@ -784,12 +784,12 @@ const Blogs = () => {
         {/* Bottom CTA */}
         <div style={{ marginTop: 64, borderRadius: 24, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', padding: '40px 44px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}>
           <div>
-            <p style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.25em', color: '#ea2222', marginBottom: 8 }}>Amppere Cable · Gujarat, India</p>
+            <p style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.25em', color: '#ea2222', marginBottom: 8 }}>Amppere Cable · Maharashtra, India</p>
             <h2 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 8 }}>
               Looking for certified cables for your next project?
             </h2>
             <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)' }}>
-              Fire alarm, fire survival, copper conductor, and instrumentation cables — all tested in-house and ready to supply across India.
+              Fire alarm, fire survival, and instrumentation cables — all tested in-house and ready to supply across India.
             </p>
           </div>
           <Link to="/contact"
