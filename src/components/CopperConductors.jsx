@@ -44,12 +44,12 @@ const CopperConductors = () => {
                     {/* Right side - Text & Button */}
                     <div className="font-inter md:w-1/2 mt-6 md:mt-0 text-left p-4" data-aos="fade-in">
                         <p className="mb-4 text-white leading-relaxed">
-                            An emerging manufacturer in the cable industry, the company boasts 30 years of core manufacturing experience and has been producing wires and cables independently for the past 4 years.
+                            An emerging manufacturer in the cable industry, the company boasts 30 years of core manufacturing experience and has been producing wires and cables independently for the past 6 years.
                             <br />
                             <span className="text-red-600 font-bold">Accredited with ISO-9001:2008 certification and registered under MSME</span>, the company also holds CE and RoHS certifications.
                         </p>
                         <p className="text-white mb-6 leading-relaxed">
-                            It serves a distinguished clientele, including Comfort Techno Solutions, Kiam Inc., Securex Systems, Virtue Automation & Control Solutions, Schneider Electric India Ltd., and many others across India, reflecting its commitment to quality and industry standards.
+                            It serves a distinguished clientele, including Comfort Techno Solutions, Kiam Intl., Securex Systems, Virtue Automation & Control Solutions, Schneider Electric India Ltd., and many others across India, reflecting its commitment to quality and industry standards.
                         </p>
                         <div className="flex justify-center items-center relative">
                             <a href="" className="relative inline-block bg-[#AE1B1B] text-white font-bold py-3 px-6 rounded hover:bg-red-700 transition">

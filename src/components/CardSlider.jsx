@@ -18,7 +18,7 @@ const testimonials = [
         id: 3,
         name: 'KIAM INTL PVT LTD.',
         text: '" Amppere’s cabling materials are top- notch, and their on - time delivery is impressive.Theyve been crucial to our banking and retail projects, and their reliability makes them a valuable partner.Were excited to continue working with them. "',
-        imageUrl:imagePath.review3, // replace with actual image path
+        imageUrl: imagePath.review3, // replace with actual image path
     },
     {
         id: 4,
@@ -70,7 +70,7 @@ const CardSlider = () => {
                                         <img
                                             src={testimonial.imageUrl}
                                             alt={testimonial.name}
-                                            className="w-full h-6 object-cover absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                            className={`w-full ${testimonial.id === 2 ? 'h-full' : 'h-6'} object-cover absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
                                         />
                                     </div>
 

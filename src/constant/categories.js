@@ -4,7 +4,7 @@ export const CATEGORIES = [
     products: [
       ["Fire Alarm Cables",    "/product/Fire Alarm Cables"],
       ["Fire Survival Cables", "/product/Fire Survival Cables"],
-      ["Fire Resistant Cables",       "/product/Screened Cable"],
+      ["Flame Retardant Cables",       "/product/Screened Cable"],
       ["Smoke Detection Cables",        "/product/Signal Cables"],
     ],
   },

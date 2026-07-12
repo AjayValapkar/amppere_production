@@ -31,14 +31,14 @@ export const productData = [
     },
     {
         productId: 2,
-        productName: 'Fire Resistant Cables',
+        productName: 'Flame Retardant Cables',
         headerImg: imagePath.productImg_2,
         detailsImg: imagePath.productDetails_2,
         data: [
             {
                 id: 1,
                 title: 'Introduction',
-                description: 'Fire Resistant Cables are built to continue functioning under fire exposure, ensuring both power and signal transmission remain active during emergencies.'
+                description: 'Flame Retardant Cables are built to continue functioning under fire exposure, ensuring both power and signal transmission remain active during emergencies.'
             },
             {
                 id: 2,
@@ -53,7 +53,7 @@ export const productData = [
             {
                 id: 4,
                 title: 'Why our Cables',
-                description: 'Our fire resistant cables combine safety compliance, advanced insulation technology, and superior build quality for dependable protection.'
+                description: 'Our Flame Retardant cables combine safety compliance, advanced insulation technology, and superior build quality for dependable protection.'
             }
         ]
     },

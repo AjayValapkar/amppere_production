@@ -26,27 +26,26 @@ const ProductSection = () => {
                 {/* Product Images with Scroll Animation */}
                 <div className="sm:flex sm:flex-col sm:justify-center">
                     <div className="flex flex-row sm:w-full sm:flex justify-center items-center">
-                        <div data-aos="fade-right" className="relative w-[100px] h-[120px] m-2 lg:w-[210px] lg:h-[240px] md:m-5 md:mb-0 md:mr-4 flex justify-center items-center rounded-br-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
-                            <img src={imagePath.productComp_1} alt="Product 1" className="transition-all duration-300 ease-in-out group-hover:opacity-40" />
-                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold">Co-Axial Cable</span>
+                        <div data-aos="fade-right" className="relative overflow-hidden w-[100px] h-[120px] m-2 lg:w-[210px] lg:h-[240px] md:m-5 md:mb-0 md:mr-4 flex justify-center items-center rounded-br-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
+                            <img src={imagePath.productImg_2} alt="Product 1" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:opacity-40" />
+                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold text-center px-2">Flame Retardant Cable</span>
                         </div>
-                        <div data-aos="fade-left" className="relative w-[100px] h-[130px] mt-2.5 md:mt-0 md:w-[225px] md:mb-4 md:h-[280px] flex justify-center items-center rounded-bl-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
-                            <img src={imagePath.productComp_2} alt="Product 2" className="transition-all duration-300 ease-in-out group-hover:opacity-40 h-[130px] md:h-[280px]" />
-                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold">Fire Alarm Cable</span>
+                        <div data-aos="fade-left" className="relative overflow-hidden w-[100px] h-[130px] mt-2.5 md:mt-0 md:w-[225px] md:mb-4 md:h-[280px] flex justify-center items-center rounded-bl-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
+                            <img src={imagePath.productImg_5} alt="Product 2" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:opacity-40" />
+                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold text-center px-2">Instrumentation Signal Cable</span>
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
-                        <div data-aos="fade-up" className="relative w-[120px] h-[160px] md:w-[250px] mr-2 md:mr-4 md:h-[260px] flex justify-center items-center rounded-tr-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
-                            <img src={imagePath.productComp_3} alt="Product 3" className="transition-all duration-300 ease-in-out group-hover:opacity-40 h-[160px] md:w-[250px] md:h-[260px]" />
-                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold">Flexible Cables</span>
+                        <div data-aos="fade-up" className="relative overflow-hidden w-[120px] h-[160px] md:w-[250px] mr-2 md:mr-4 md:h-[260px] flex justify-center items-center rounded-tr-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
+                            <img src={imagePath.productImg_7} alt="Product 3" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:opacity-40" />
+                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold text-center px-2">Control Cable</span>
                         </div>
-                        <div data-aos="fade-down" className="relative w-[120px] h-[170px] mt-2 md:mt-0 md:w-[250px] md:h-[320px] flex justify-center items-center rounded-tl-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
-                            <img src={imagePath.productComp_4} alt="Product 4" className="transition-all duration-300 ease-in-out group-hover:opacity-40 h-[170px] md:h-[320px]" />
-                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold">Fire Survival Cables</span>
+                        <div data-aos="fade-down" className="relative overflow-hidden w-[120px] h-[170px] mt-2 md:mt-0 md:w-[250px] md:h-[320px] flex justify-center items-center rounded-tl-2xl bg-gradient-to-r from-[#253466] to-[#4A67CC] group">
+                            <img src={imagePath.productImg_8} alt="Product 4" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:opacity-40" />
+                            <span className="absolute inset-0 flex items-center justify-center text-white text-opacity-0 group-hover:text-opacity-100 transition-all duration-300 ease-in-out text-sm md:text-lg font-bold text-center px-2">Fire Survival Cable</span>
                         </div>
                     </div>
                 </div>
-
                 <div className="md:w-[40%]">
                     <div>
                         {/* Desktop view */}

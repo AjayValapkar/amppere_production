@@ -1,7 +1,7 @@
 import productBgImg from '../assets/bg-img.png';
 import productImg_1 from '../assets/products/Firealarms.png';
 import productDetails_1 from '../assets/product_details_1.png';
-import productImg_2 from '../assets/products/fireresistent.png';
+import productImg_2 from '../assets/products/Flame_Redundant.png';
 import productDetails_2 from '../assets/product_details_2.png';
 import productImg_3 from '../assets/products/smokedetections.png';
 import productDetails_3 from '../assets/product_details_3.png';
@@ -13,7 +13,7 @@ import productImg_6 from '../assets/products/Thermocouple_Cable.png';
 import productDetails_6 from '../assets/product_details_6.png';
 import productImg_7 from '../assets/products/controlcable.png';
 import productDetails_7 from '../assets/product_details_7.png';
-import productImg_8 from '../assets/products/firesurvival.png';
+import productImg_8 from '../assets/products/firesurvival.jpeg';
 import productDetails_8 from '../assets/product_details_8.png';
 import productComp_1 from '../assets/proCom1.png';
 import productComp_2 from '../assets/cableproduct.png';
@@ -24,7 +24,7 @@ import profile from '../assets/userProfile.png';
 import union from '../assets/Union.png';
 import map from '../assets/map.png';
 import junai from '../assets/junai.png';
-import nexus from '../assets/nexus.png';
+import nexus from '../assets/nexus.jpeg';
 import kiam from '../assets/kiam.webp';
 import wire from '../assets/wire.png'
 import aboutUs from '../assets/navback.png'
@@ -52,7 +52,7 @@ import comany5 from '../assets/image 36.png'
 import comany6 from '../assets/image 37.png'
 
 import review1 from '../assets/junai.png'
-import review2 from '../assets/nexus.png'
+import review2 from '../assets/nexus.jpeg'
 import review3 from '../assets/kiam.webp'
 import review4 from '../assets/testimonial.png'
 import post1 from '../assets/post1.jpg'
@@ -68,7 +68,7 @@ import logo1 from '../assets/amp-logo1.png'
 import footerBg from '../assets/footer.png'
 
 
-import comany9 from '../assets/nexus.png'
+import comany9 from '../assets/nexus.jpeg'
 import comany10 from '../assets/Capgemini-Logo.png'
 import comany11 from '../assets/Mahindra_aerospace.webp'
 import comany12 from '../assets/bse.jpg'
